@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rekapmedis/Layer/Home.dart';
 import 'package:rekapmedis/Layer/Register.dart';
+import 'package:rekapmedis/Layer/template_form.dart';
 
 class MyLogin extends StatefulWidget {
   const MyLogin({super.key});
@@ -11,7 +12,10 @@ class MyLogin extends StatefulWidget {
 }
 
 class _MyLoginState extends State<MyLogin> {
-  bool _isPasswordVisible = false;
+  List form = [
+    {"NAME": "NSIP", "ICON": Icons.person, "OBS": false},
+    {"NAME": "Kata sandi", "ICON": Icons.lock, "OBS": true}
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,39 +39,13 @@ class _MyLoginState extends State<MyLogin> {
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: TextFormField(
-                    keyboardType: TextInputType.number,
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.digitsOnly
-                    ],
-                    maxLength: 9,
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.person),
-                        label: Text("NSIP : "),
-                        counterText: '',
-                        border: OutlineInputBorder())),
-              ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: TextFormField(
-                    obscureText: !_isPasswordVisible,
-                    decoration: InputDecoration(
-                        label: Text("Kata Sandi : "),
-                        prefixIcon: Icon(Icons.lock),
-                        suffixIcon: IconButton(
-                          icon: Icon(_isPasswordVisible
-                              ? Icons.visibility
-                              : Icons.visibility_off),
-                          onPressed: () {
-                            setState(() {
-                              _isPasswordVisible = !_isPasswordVisible;
-                            });
-                          },
-                        ),
-                        border: OutlineInputBorder())),
-              ),
+              Column(
+                  children: List.generate(
+                      form.length,
+                      (index) => MyInput(
+                          obsecure: form[index]["OBS"],
+                          NAME: form[index]["NAME"],
+                          Logo: form[index]["ICON"]))),
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: SizedBox(

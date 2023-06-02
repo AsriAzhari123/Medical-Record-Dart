@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rekapmedis/Layer/Login.dart';
+import 'package:rekapmedis/Layer/template_form.dart';
 
 class MyRegister extends StatefulWidget {
   const MyRegister({super.key});
@@ -9,7 +10,13 @@ class MyRegister extends StatefulWidget {
 }
 
 class _MyRegisterState extends State<MyRegister> {
-  bool _isPasswordVisible = false;
+  List form = [
+    {"NAME": "NSIP", "ICON": Icons.person, "OBS": false},
+    {"NAME": "Nama Lengkap", "ICON": Icons.person, "OBS": false},
+    {"NAME": "Email", "ICON": Icons.email, "OBS": false},
+    {"NAME": "Kata sandi", "ICON": Icons.person, "OBS": true},
+    {"NAME": "No Telepon", "ICON": Icons.person, "OBS": false},
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,57 +40,13 @@ class _MyRegisterState extends State<MyRegister> {
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(8, 6, 8, 0),
-                child: TextFormField(
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.person),
-                        label: Text("NSIP : "),
-                        border: OutlineInputBorder())),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(8, 6, 8, 0),
-                child: TextFormField(
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.person),
-                        label: Text("Nama Lengkap : "),
-                        border: OutlineInputBorder())),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(8, 6, 8, 0),
-                child: TextFormField(
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.email),
-                        label: Text("Email : "),
-                        border: OutlineInputBorder())),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(8, 6, 8, 0),
-                child: TextFormField(
-                    obscureText: !_isPasswordVisible,
-                    decoration: InputDecoration(
-                        label: Text("Kata Sandi : "),
-                        prefixIcon: Icon(Icons.lock),
-                        suffixIcon: IconButton(
-                          icon: Icon(_isPasswordVisible
-                              ? Icons.visibility
-                              : Icons.visibility_off),
-                          onPressed: () {
-                            setState(() {
-                              _isPasswordVisible = !_isPasswordVisible;
-                            });
-                          },
-                        ),
-                        border: OutlineInputBorder())),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(8, 6, 8, 8),
-                child: TextFormField(
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.call),
-                        label: Text("No Telepon : "),
-                        border: OutlineInputBorder())),
-              ),
+              Column(
+                  children: List.generate(
+                      form.length,
+                      (index) => MyInput(
+                          obsecure: form[index]["OBS"],
+                          NAME: form[index]["NAME"],
+                          Logo: form[index]["ICON"]))),
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: SizedBox(

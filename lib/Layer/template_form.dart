@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MyInput extends StatefulWidget {
   final bool obsecure;
@@ -27,8 +28,18 @@ class _MyInputState extends State<MyInput> {
       padding: EdgeInsets.all(8.0),
       child: TextFormField(
           obscureText: check,
+          keyboardType: (widget.NAME == "NSIP" || widget.NAME == "No Telepon")
+              ? TextInputType.number
+              : TextInputType.text,
+          inputFormatters:
+              (widget.NAME == "NSIP" || widget.NAME == "No Telepon")
+                  ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly]
+                  : null,
+          maxLength:
+              (widget.NAME == "NSIP" || widget.NAME == "No telepon") ? 9 : null,
           decoration: InputDecoration(
               label: Text(widget.NAME),
+              counterText: "",
               prefixIcon: Icon(widget.Logo),
               suffixIcon: IconButton(
                 icon: widget.NAME != "Kata sandi"

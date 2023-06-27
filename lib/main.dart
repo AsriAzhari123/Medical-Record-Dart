@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rekapmedis/Layer/DataPasien.dart';
 import 'package:rekapmedis/Layer/Login.dart';
+import 'package:rekapmedis/Layer/MedicalRecord.dart';
 import 'package:rekapmedis/Layer/Register.dart';
+import 'package:rekapmedis/Layer/tes.dart';
+import 'package:rekapmedis/Provider/user_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(create: (_) => User(), child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -26,7 +31,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyLogin(),
+      home: const MyMedicalRecord2(),
     );
   }
 }

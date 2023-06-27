@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rekapmedis/Layer/Login.dart';
 import 'package:rekapmedis/Layer/template_form.dart';
+import 'package:rekapmedis/Provider/user_provider.dart';
 
 class MyRegister extends StatefulWidget {
   const MyRegister({super.key});

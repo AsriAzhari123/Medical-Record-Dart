@@ -7,8 +7,14 @@ import 'package:rekapmedis/Layer/Register.dart';
 import 'package:rekapmedis/Layer/tes.dart';
 import 'package:rekapmedis/Provider/user_provider.dart';
 
+import 'Provider/Pasien_data.dart';
+
 void main() {
-  runApp(ChangeNotifierProvider(create: (_) => User(), child: MyApp()));
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(
+      create: (_) => DataPasien(),
+    )
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

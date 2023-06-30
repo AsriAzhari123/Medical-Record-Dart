@@ -11,13 +11,14 @@ class DataPasien extends ChangeNotifier {
         "Alamat": "Jl. Lembaga",
         "Pekerjaan": "Mahasiswa",
         "Imunisasi": "Sudah",
-        "TanggalBerkunjung": "27 Juni 2023",
+        "TanggalBerkunjung": "12 April 2023",
         "Alergi": "Ikan Laut",
+        "Anamnesa": "Demam",
+        "Diagnosa": "Ispa (Infeksi saluran pernapasan atas)",
+        "Therapy":
+            "Tensi 130/80mmhg, injeksi duradil 1ml, Tablet ciprofloxacin 50mg 2x1, Tablet dapirin 500mg 3x1, Tablet grantusif 3x1, Tablet lanadexon 2x1"
       }
     ],
-    "cekpasien": [
-      {"Anamnesa": "Demam", "Diagnosa": "Ispa", "Therapy": "Panadol"}
-    ]
   };
   get datapasien => _datapasien;
   var _ActivePasien;
@@ -48,11 +49,11 @@ class DataPasien extends ChangeNotifier {
           "Imunisasi": Imunisasi,
           "TanggalBerkunjung": TanggalBerkunjung,
           "Alergi": Alergi,
+          "Anamnesa": Anamnesa,
+          "Diagnosa": Diagnosa,
+          "Therapy": Therapy
         }
       ],
-      "cekpasien": [
-        {"Anamnesa": Anamnesa, "Diagnosa": Diagnosa, "Therapy": Therapy}
-      ]
     });
     notifyListeners();
   }
@@ -82,11 +83,11 @@ class DataPasien extends ChangeNotifier {
           "Imunisasi": Imunisasi,
           "TanggalBerkunjung": TanggalBerkunjung,
           "Alergi": Alergi,
+          "Anamnesa": Anamnesa,
+          "Diagnosa": Diagnosa,
+          "Therapy": Therapy
         }
       ],
-      "cekpasien": [
-        {"Anamnesa": Anamnesa, "Diagnosa": Diagnosa, "Therapy": Therapy}
-      ]
     };
     notifyListeners();
   }

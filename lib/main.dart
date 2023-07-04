@@ -4,7 +4,6 @@ import 'package:rekapmedis/Layer/DataPasien.dart';
 import 'package:rekapmedis/Layer/Login.dart';
 import 'package:rekapmedis/Layer/MedicalRecord.dart';
 import 'package:rekapmedis/Layer/Register.dart';
-import 'package:rekapmedis/Layer/tes.dart';
 import 'package:rekapmedis/Provider/user_provider.dart';
 
 import 'Provider/Pasien_data.dart';
@@ -37,7 +36,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyMedicalRecord2(),
+      home: const MyMedicalRecord(),
     );
   }
 }

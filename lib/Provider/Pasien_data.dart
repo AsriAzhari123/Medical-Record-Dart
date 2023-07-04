@@ -17,7 +17,11 @@ class DataPasien extends ChangeNotifier {
         "Diagnosa": "Ispa (Infeksi saluran pernapasan atas)",
         "Therapy":
             "Tensi 130/80mmhg, injeksi duradil 1ml, Tablet ciprofloxacin 50mg 2x1, Tablet dapirin 500mg 3x1, Tablet grantusif 3x1, Tablet lanadexon 2x1"
-      }
+      },
+      {
+        "Nama": "Asri Azhari",
+      },
+      {"Nama": "Ahmad Heidy"}
     ],
   };
   get datapasien => _datapasien;

@@ -1,7 +1,8 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../Provider/Pasien_data.dart';
+import '../Provider/Pasien_provider.dart';
+import '../Provider/pasientoobject.dart';
 
 class MyTabMed extends StatefulWidget {
   const MyTabMed({Key? key});
@@ -33,19 +34,22 @@ class _MyTabMedState extends State<MyTabMed> {
 
   @override
   Widget build(BuildContext context) {
-    DataPasien providerDataPasien = Provider.of<DataPasien>(context);
-    List<Map<String, String>> pasien = providerDataPasien.datapasien['pasien'];
+    PasienData pasienData = Provider.of<PasienData>(context);
+    List<dynamic> myPasien = pasienData.myPasien;
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: pasien.length,
+        itemCount: myPasien.length,
         itemBuilder: (context, index) {
-          String tanggalberkunjungText = pasien[0]['TanggalBerkunjung']!;
-          String anamnesaText = pasien[0]['Anamnesa']!;
-          String diagnosaText = pasien[0]['Diagnosa']!;
-          String therapyText = pasien[0]['Therapy']!;
+          Person person = Person.fromJson(myPasien[index]['Pasien'][0]);
+          List<mrecord> Mrecord = [];
+          if (person.Mrecord != null) {
+            for (var item in person.Mrecord!) {
+              mrecord.add(Mrecord.fromJson(item));
+            }
+          }
 
           return Container(
             width: 350,
@@ -65,7 +69,7 @@ class _MyTabMedState extends State<MyTabMed> {
                           flex: 5,
                           child: Container(
                             child: Text(
-                              "Tanggal Masuk\n" + tanggalberkunjungText,
+                              "Tanggal Masuk\n" + mrecord[0].TanggalBerkunjung!,
                               style: TextStyle(fontWeight: FontWeight.w600),
                             ),
                           ),
@@ -85,8 +89,8 @@ class _MyTabMedState extends State<MyTabMed> {
                                       if (isEditingAnamnesa) {
                                         if (editedAnamnesaText.isNotEmpty &&
                                             editedAnamnesaText !=
-                                                anamnesaText) {
-                                          pasien[index]['Anamnesa'] =
+                                                mrecord[0].Anamnesa) {
+                                          mrecord[0].Anamnesa =
                                               editedAnamnesaText;
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(
@@ -99,8 +103,8 @@ class _MyTabMedState extends State<MyTabMed> {
                                       if (isEditingDiagnosa) {
                                         if (editedDiagnosaText.isNotEmpty &&
                                             editedDiagnosaText !=
-                                                diagnosaText) {
-                                          pasien[index]['Diagnosa'] =
+                                                mrecord[0].Diagnosa) {
+                                          mrecord[0].Diagnosa =
                                               editedDiagnosaText;
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(
@@ -112,8 +116,9 @@ class _MyTabMedState extends State<MyTabMed> {
                                       }
                                       if (isEditingTherapy) {
                                         if (editedTherapyText.isNotEmpty &&
-                                            editedTherapyText != therapyText) {
-                                          pasien[index]['Therapy'] =
+                                            editedTherapyText !=
+                                                mrecord[0].Therapy) {
+                                          mrecord[0].Therapy =
                                               editedTherapyText;
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(
@@ -188,8 +193,11 @@ class _MyTabMedState extends State<MyTabMed> {
                                                       ? editedAnamnesaText
                                                               .isNotEmpty
                                                           ? editedAnamnesaText
-                                                          : anamnesaText ?? ''
-                                                      : anamnesaText ?? '',
+                                                          : mrecord[0]
+                                                                  .Anamnesa ??
+                                                              ''
+                                                      : mrecord[0].Anamnesa ??
+                                                          '',
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold),
@@ -249,8 +257,11 @@ class _MyTabMedState extends State<MyTabMed> {
                                                         ? editedDiagnosaText
                                                                 .isNotEmpty
                                                             ? editedDiagnosaText
-                                                            : diagnosaText ?? ''
-                                                        : diagnosaText ?? '',
+                                                            : mrecord[0]
+                                                                    .Diagnosa ??
+                                                                ''
+                                                        : mrecord[0].Diagnosa ??
+                                                            '',
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold),
@@ -311,8 +322,11 @@ class _MyTabMedState extends State<MyTabMed> {
                                                         ? editedTherapyText
                                                                 .isNotEmpty
                                                             ? editedTherapyText
-                                                            : therapyText ?? ''
-                                                        : therapyText ?? '',
+                                                            : mrecord[0]
+                                                                    .Therapy ??
+                                                                ''
+                                                        : mrecord[0].Therapy ??
+                                                            '',
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold),

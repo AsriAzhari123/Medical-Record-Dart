@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
 
 import '../Provider/Pasien_data.dart';
-import 'FAB_Med.dart';
 import 'Temp_TabMed.dart';
+import 'myFAB.dart';
 
 class MyMedicalRecord extends StatefulWidget {
-  const MyMedicalRecord({Key? key});
+  final Map<String, dynamic> pasienData;
+
+  const MyMedicalRecord({Key? key, required this.pasienData}) : super(key: key);
 
   @override
   State<MyMedicalRecord> createState() => _MyMedicalRecordState();
@@ -18,18 +21,29 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
   TextEditingController textEditingController1 = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
-    DataPasien providerDataPasien = Provider.of<DataPasien>(context);
-    List<Map<String, String>> pasien = providerDataPasien.datapasien['pasien'];
+  void initState() {
+    super.initState();
+    textEditingController1.text = widget.pasienData['Alergi']!;
+  }
 
-    String allergyText = pasien[0]['Alergi']!;
-    String NamaText = pasien[0]['Nama']!;
-    String JenisKelaminText = pasien[0]['JenisKelamin']!;
-    String NomorTeleponText = pasien[0]['NomorTelepon']!;
-    String AlamatText = pasien[0]['Alamat']!;
-    String PekerjaanText = pasien[0]['Pekerjaan']!;
-    String ImunisasiText = pasien[0]['Imunisasi']!;
-    String TanggalLahirText = pasien[0]['TanggalLahir']!;
+  @override
+  void dispose() {
+    textEditingController1.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    String allergyText =
+        isEditing ? editedAllergyText : widget.pasienData['Alergi']!;
+    String NamaText = widget.pasienData['Nama']!;
+    String JenisKelaminText = widget.pasienData['JenisKelamin']!;
+    String NomorTeleponText = widget.pasienData['NomorTelepon']!;
+    String AlamatText = widget.pasienData['Alamat']!;
+    String PekerjaanText = widget.pasienData['Pekerjaan']!;
+    String ImunisasiText = widget.pasienData['Imunisasi']!;
+    String TanggalLahirText = widget.pasienData['TanggalLahir']!;
+    var prov = Provider.of<DataPasien>(context);
     return Scaffold(
         backgroundColor: Colors.green,
         appBar: AppBar(
@@ -38,7 +52,9 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
             style: TextStyle(color: Colors.black),
           ),
           leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             icon: Icon(Icons.arrow_back_ios_new),
             color: Colors.black,
           ),
@@ -179,10 +195,7 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                                               border: OutlineInputBorder(),
                                             ),
                                           )
-                                        : Text("Alergi : " +
-                                            (isEditing
-                                                ? editedAllergyText
-                                                : allergyText)),
+                                        : Text("Alergi : $allergyText"),
                                   ),
                                 ),
                                 Expanded(
@@ -190,11 +203,8 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                                     onPressed: () {
                                       setState(() {
                                         if (isEditing) {
-                                          // Cek apakah ada perubahan pada teks
-                                          if (editedAllergyText.isNotEmpty &&
-                                              editedAllergyText !=
-                                                  allergyText) {
-                                            pasien[0]['Alergi'] =
+                                          if (editedAllergyText.isNotEmpty) {
+                                            widget.pasienData['Alergi'] =
                                                 editedAllergyText;
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(SnackBar(
@@ -202,8 +212,7 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                                                   Text('Data Alergi diubah!'),
                                             ));
                                           }
-                                          editedAllergyText =
-                                              ""; // Mengosongkan teks yang diubah
+                                          editedAllergyText = "";
                                         }
                                         isEditing = !isEditing;
                                       });
@@ -223,8 +232,7 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                   child: Container(
                     width: double.infinity,
-                    height: MediaQuery.of(context).size.height -
-                        MediaQuery.of(context).viewInsets.bottom,
+                    // height: MediaQuery.of(context).size.height,
                     color: Colors.white,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -241,7 +249,7 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                           child: Column(
                             children: [
                               Center(
-                                child: MyTabMed(),
+                                child: MyTabMed(pasienData: widget.pasienData),
                               ),
                             ],
                           ),
@@ -254,6 +262,14 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
             ),
           ),
         ),
-        floatingActionButton: MyFABMed());
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => addRiwayat(
+                        NamaText: NamaText,
+                      ))),
+          child: Icon(Icons.add),
+        ));
   }
 }

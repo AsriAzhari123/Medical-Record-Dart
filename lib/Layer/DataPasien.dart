@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
+import 'dart:convert';
 
 import '../Provider/Pasien_data.dart';
+import 'MedicalRecord.dart';
 
-class MyDataPasien extends StatefulWidget {
-  const MyDataPasien({Key? key}) : super(key: key);
-
+class MytDataPasien extends StatefulWidget {
+  const MytDataPasien({Key? key}) : super(key: key);
   @override
-  State<MyDataPasien> createState() => _MyDataPasienState();
+  State<MytDataPasien> createState() => _MytDataPasienState();
 }
 
-class _MyDataPasienState extends State<MyDataPasien>
+class _MytDataPasienState extends State<MytDataPasien>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   List<String> _tabs =
@@ -30,11 +32,11 @@ class _MyDataPasienState extends State<MyDataPasien>
 
   @override
   Widget build(BuildContext context) {
-    DataPasien providerDataPasien = Provider.of<DataPasien>(context);
-    List<Map<String, String>> pasien = providerDataPasien.datapasien['pasien'];
+    DataPasien dataPasien = Provider.of<DataPasien>(context);
+    List<Map<String, dynamic>> pasien = dataPasien.datapasien['pasien'];
 
     // Menyusun daftar pasien berdasarkan huruf pertama nama
-    Map<String, List<Map<String, String>>> pasienByLetter = {};
+    Map<String, List<Map<String, dynamic>>> pasienByLetter = {};
     for (var data in pasien) {
       String nama = data['Nama'] ?? "";
       String firstLetter = nama.isNotEmpty ? nama[0].toUpperCase() : '';
@@ -49,7 +51,9 @@ class _MyDataPasienState extends State<MyDataPasien>
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
           icon: Icon(Icons.arrow_back_ios_new, color: Colors.black),
         ),
         title: Text(
@@ -77,7 +81,7 @@ class _MyDataPasienState extends State<MyDataPasien>
             itemCount: sortedLetters.length,
             itemBuilder: (BuildContext context, int index) {
               String letter = sortedLetters[index];
-              List<Map<String, String>> pasienLetter = pasienByLetter[letter]!;
+              List<Map<String, dynamic>> pasienLetter = pasienByLetter[letter]!;
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -98,7 +102,12 @@ class _MyDataPasienState extends State<MyDataPasien>
                           trailing: Icon(
                             Icons.arrow_forward_ios,
                           ),
-                          onTap: () {},
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => MyMedicalRecord(
+                                        pasienData: data,
+                                      ))),
                         ),
                         Divider(), // Pemisah antara setiap item
                       ],
@@ -112,39 +121,42 @@ class _MyDataPasienState extends State<MyDataPasien>
             if (tab == 'All') {
               return SizedBox.shrink();
             } else {
-              List<Map<String, String>> filteredPasien = pasien
+              // Mengambil hanya data pasien yang dimulai dengan huruf tab
+              List<Map<String, dynamic>> filteredPasien = pasien
                   .where((data) =>
                       data['Nama']!.isNotEmpty &&
                       data['Nama']![0].toUpperCase() == tab)
                   .toList();
 
               return ListView.builder(
-                itemCount: filteredPasien.length + 1,
+                itemCount: filteredPasien.length,
                 itemBuilder: (BuildContext context, int index) {
-                  if (index == 0) {
-                    return ListTile(
-                      title: Text(tab),
-                    );
-                  } else {
-                    String nama = filteredPasien[index - 1]['Nama'] ?? "";
-                    return Column(
-                      children: [
-                        ListTile(
-                          title: Text(
-                            nama,
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          subtitle: Text('100000001'),
-                          leading: Icon(Icons.person),
-                          trailing: Icon(
-                            Icons.arrow_forward_ios,
-                          ),
-                          onTap: () {},
+                  Map<String, dynamic> pasienData = filteredPasien[index];
+                  String nama = pasienData['Nama'] ?? "";
+                  return Column(
+                    children: [
+                      ListTile(
+                        title: Text(
+                          nama,
+                          style: TextStyle(fontSize: 18),
                         ),
-                        Divider(), // Pemisah antara setiap item
-                      ],
-                    );
-                  }
+                        subtitle: Text('100000001'),
+                        leading: Icon(Icons.person),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                        ),
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => MyMedicalRecord(
+                              pasienData: pasienData,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Divider(), // Pemisah antara setiap item
+                    ],
+                  );
                 },
               );
             }

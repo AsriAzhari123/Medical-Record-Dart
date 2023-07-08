@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../Provider/Pasien_data.dart';
-
 class MyTabMed extends StatefulWidget {
-  const MyTabMed({Key? key});
+  final Map<String, dynamic> pasienData;
+  const MyTabMed({Key? key, required this.pasienData}) : super(key: key);
 
   @override
   State<MyTabMed> createState() => _MyTabMedState();
@@ -33,309 +32,330 @@ class _MyTabMedState extends State<MyTabMed> {
 
   @override
   Widget build(BuildContext context) {
-    DataPasien providerDataPasien = Provider.of<DataPasien>(context);
-    List<Map<String, String>> pasien = providerDataPasien.datapasien['pasien'];
-
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: pasien.length,
-        itemBuilder: (context, index) {
-          String tanggalberkunjungText = pasien[0]['TanggalBerkunjung']!;
-          String anamnesaText = pasien[0]['Anamnesa']!;
-          String diagnosaText = pasien[0]['Diagnosa']!;
-          String therapyText = pasien[0]['Therapy']!;
-
-          return Container(
-            width: 350,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Color.fromRGBO(202, 255, 160, 100),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 8, 8, 18),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 5,
-                          child: Container(
-                            child: Text(
-                              "Tanggal Masuk\n" + tanggalberkunjungText,
-                              style: TextStyle(fontWeight: FontWeight.w600),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 0,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 1.0),
-                            child: Container(
-                              child: TextButton(
-                                onPressed: () {
-                                  setState(() {
-                                    if (isEditingAnamnesa ||
-                                        isEditingDiagnosa ||
-                                        isEditingTherapy) {
-                                      // Save the changes
-                                      if (isEditingAnamnesa) {
-                                        if (editedAnamnesaText.isNotEmpty &&
-                                            editedAnamnesaText !=
-                                                anamnesaText) {
-                                          pasien[index]['Anamnesa'] =
-                                              editedAnamnesaText;
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                            content:
-                                                Text('Data sudah terganti'),
-                                          ));
-                                        }
-                                        editedAnamnesaText = "";
-                                      }
-                                      if (isEditingDiagnosa) {
-                                        if (editedDiagnosaText.isNotEmpty &&
-                                            editedDiagnosaText !=
-                                                diagnosaText) {
-                                          pasien[index]['Diagnosa'] =
-                                              editedDiagnosaText;
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                            content:
-                                                Text('Data sudah terganti'),
-                                          ));
-                                        }
-                                        editedDiagnosaText = "";
-                                      }
-                                      if (isEditingTherapy) {
-                                        if (editedTherapyText.isNotEmpty &&
-                                            editedTherapyText != therapyText) {
-                                          pasien[index]['Therapy'] =
-                                              editedTherapyText;
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                            content:
-                                                Text('Data Pasien diubah!'),
-                                          ));
-                                        }
-                                        editedTherapyText = "";
-                                      }
-                                    }
-
-                                    isEditingAnamnesa = !isEditingAnamnesa;
-                                    isEditingDiagnosa = !isEditingDiagnosa;
-                                    isEditingTherapy = !isEditingTherapy;
-                                  });
-                                },
+          shrinkWrap: true,
+          itemCount: widget.pasienData['Mrecord']!.length,
+          itemBuilder: (context, index) {
+            List<Map<String, dynamic>> record =
+                widget.pasienData["Mrecord"] as List<Map<String, dynamic>>;
+            Map<String, dynamic> currentRecord = record[index];
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: Container(
+                width: 350,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Color.fromRGBO(202, 255, 160, 100),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(8, 8, 8, 18),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 5,
+                              child: Container(
                                 child: Text(
-                                  isEditingAnamnesa ||
-                                          isEditingDiagnosa ||
-                                          isEditingTherapy
-                                      ? "Save"
-                                      : "Edit",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  "Tanggal Masuk\n${currentRecord['TanggalBerkunjung']}",
+                                  style: TextStyle(fontWeight: FontWeight.w600),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              width: 330,
-                              decoration: BoxDecoration(color: Colors.white),
+                            Expanded(
+                              flex: 0,
                               child: Padding(
-                                padding: const EdgeInsets.fromLTRB(8, 8, 8, 16),
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(bottom: 8),
-                                      child: Row(
-                                        children: [
-                                          Text("Anamnesa / Cek Fisik"),
-                                        ],
-                                      ),
+                                padding: const EdgeInsets.only(left: 1.0),
+                                child: Container(
+                                  child: TextButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        if (isEditingAnamnesa ||
+                                            isEditingDiagnosa ||
+                                            isEditingTherapy) {
+                                          // Save the changes
+                                          if (isEditingAnamnesa) {
+                                            if (editedAnamnesaText.isNotEmpty &&
+                                                editedAnamnesaText !=
+                                                    currentRecord['Anamnesa']) {
+                                              currentRecord['Anamnesa'] =
+                                                  editedAnamnesaText;
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                content:
+                                                    Text('Data sudah terganti'),
+                                              ));
+                                            }
+                                            editedAnamnesaText = "";
+                                          }
+                                          if (isEditingDiagnosa) {
+                                            if (editedDiagnosaText.isNotEmpty &&
+                                                editedDiagnosaText !=
+                                                    currentRecord['Diagnosa']) {
+                                              currentRecord['Diagnosa'] =
+                                                  editedDiagnosaText;
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                content:
+                                                    Text('Data sudah terganti'),
+                                              ));
+                                            }
+                                            editedDiagnosaText = "";
+                                          }
+                                          if (isEditingTherapy) {
+                                            if (editedTherapyText.isNotEmpty &&
+                                                editedTherapyText !=
+                                                    currentRecord['Therapy']) {
+                                              currentRecord['Therapy'] =
+                                                  editedTherapyText;
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                content:
+                                                    Text('Data Pasien diubah!'),
+                                              ));
+                                            }
+                                            editedTherapyText = "";
+                                          }
+                                        }
+
+                                        isEditingAnamnesa = !isEditingAnamnesa;
+                                        isEditingDiagnosa = !isEditingDiagnosa;
+                                        isEditingTherapy = !isEditingTherapy;
+                                      });
+                                    },
+                                    child: Text(
+                                      isEditingAnamnesa ||
+                                              isEditingDiagnosa ||
+                                              isEditingTherapy
+                                          ? "Save"
+                                          : "Edit",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
                                     ),
-                                    Row(
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  width: 330,
+                                  decoration:
+                                      BoxDecoration(color: Colors.white),
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(8, 8, 8, 16),
+                                    child: Column(
                                       children: [
-                                        Expanded(
-                                          child: isEditingAnamnesa
-                                              ? TextField(
-                                                  controller:
-                                                      anamnesaController,
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      editedAnamnesaText =
-                                                          value;
-                                                    });
-                                                  },
-                                                  decoration: InputDecoration(
-                                                    border:
-                                                        OutlineInputBorder(),
-                                                  ),
-                                                )
-                                              : Text(
-                                                  isEditingAnamnesa
-                                                      ? editedAnamnesaText
-                                                              .isNotEmpty
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(bottom: 8),
+                                          child: Row(
+                                            children: [
+                                              Text("Anamnesa / Cek Fisik"),
+                                            ],
+                                          ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: isEditingAnamnesa
+                                                  ? TextField(
+                                                      controller:
+                                                          anamnesaController,
+                                                      onChanged: (value) {
+                                                        setState(() {
+                                                          editedAnamnesaText =
+                                                              value;
+                                                        });
+                                                      },
+                                                      decoration:
+                                                          InputDecoration(
+                                                        border:
+                                                            OutlineInputBorder(),
+                                                      ),
+                                                    )
+                                                  : Text(
+                                                      isEditingAnamnesa
                                                           ? editedAnamnesaText
-                                                          : anamnesaText ?? ''
-                                                      : anamnesaText ?? '',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
+                                                                  .isNotEmpty
+                                                              ? editedAnamnesaText
+                                                              : currentRecord[
+                                                                      'Anamnesa'] ??
+                                                                  ''
+                                                          : currentRecord[
+                                                                  'Anamnesa'] ??
+                                                              '',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 3.0),
-                              child: Container(
-                                width: 330,
-                                decoration: BoxDecoration(color: Colors.white),
+                          Row(
+                            children: [
+                              Expanded(
                                 child: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(8, 8, 8, 16),
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8),
-                                        child: Row(
-                                          children: [
-                                            Text("Diagnosa"),
-                                          ],
-                                        ),
-                                      ),
-                                      Row(
+                                  padding: const EdgeInsets.only(top: 3.0),
+                                  child: Container(
+                                    width: 330,
+                                    decoration:
+                                        BoxDecoration(color: Colors.white),
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          8, 8, 8, 16),
+                                      child: Column(
                                         children: [
-                                          Expanded(
-                                            child: isEditingDiagnosa
-                                                ? TextField(
-                                                    controller:
-                                                        diagnosaController,
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        editedDiagnosaText =
-                                                            value;
-                                                      });
-                                                    },
-                                                    decoration: InputDecoration(
-                                                      border:
-                                                          OutlineInputBorder(),
-                                                    ),
-                                                  )
-                                                : Text(
-                                                    isEditingDiagnosa
-                                                        ? editedDiagnosaText
-                                                                .isNotEmpty
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 8),
+                                            child: Row(
+                                              children: [
+                                                Text("Diagnosa"),
+                                              ],
+                                            ),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: isEditingDiagnosa
+                                                    ? TextField(
+                                                        controller:
+                                                            diagnosaController,
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            editedDiagnosaText =
+                                                                value;
+                                                          });
+                                                        },
+                                                        decoration:
+                                                            InputDecoration(
+                                                          border:
+                                                              OutlineInputBorder(),
+                                                        ),
+                                                      )
+                                                    : Text(
+                                                        isEditingDiagnosa
                                                             ? editedDiagnosaText
-                                                            : diagnosaText ?? ''
-                                                        : diagnosaText ?? '',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
+                                                                    .isNotEmpty
+                                                                ? editedDiagnosaText
+                                                                : currentRecord[
+                                                                        'Diagnosa'] ??
+                                                                    ''
+                                                            : currentRecord[
+                                                                    'Diagnosa'] ??
+                                                                '',
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
-                                    ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 3.0),
-                              child: Container(
-                                width: 330,
-                                decoration: BoxDecoration(color: Colors.white),
+                          Row(
+                            children: [
+                              Expanded(
                                 child: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(8, 8, 8, 16),
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8),
-                                        child: Row(
-                                          children: [
-                                            Text("Therapy"),
-                                          ],
-                                        ),
-                                      ),
-                                      Row(
+                                  padding: const EdgeInsets.only(top: 3.0),
+                                  child: Container(
+                                    width: 330,
+                                    decoration:
+                                        BoxDecoration(color: Colors.white),
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          8, 8, 8, 16),
+                                      child: Column(
                                         children: [
-                                          Expanded(
-                                            child: isEditingTherapy
-                                                ? TextField(
-                                                    controller:
-                                                        therapyController,
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        editedTherapyText =
-                                                            value;
-                                                      });
-                                                    },
-                                                    decoration: InputDecoration(
-                                                      border:
-                                                          OutlineInputBorder(),
-                                                    ),
-                                                  )
-                                                : Text(
-                                                    isEditingTherapy
-                                                        ? editedTherapyText
-                                                                .isNotEmpty
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 8),
+                                            child: Row(
+                                              children: [
+                                                Text("Therapy"),
+                                              ],
+                                            ),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: isEditingTherapy
+                                                    ? TextField(
+                                                        controller:
+                                                            therapyController,
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            editedTherapyText =
+                                                                value;
+                                                          });
+                                                        },
+                                                        decoration:
+                                                            InputDecoration(
+                                                          border:
+                                                              OutlineInputBorder(),
+                                                        ),
+                                                      )
+                                                    : Text(
+                                                        isEditingTherapy
                                                             ? editedTherapyText
-                                                            : therapyText ?? ''
-                                                        : therapyText ?? '',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
+                                                                    .isNotEmpty
+                                                                ? editedTherapyText
+                                                                : currentRecord[
+                                                                        'Therapy'] ??
+                                                                    ''
+                                                            : currentRecord[
+                                                                    'Therapy'] ??
+                                                                '',
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
-                                    ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
                         ],
                       ),
                     ],
                   ),
-                ],
+                ),
               ),
-            ),
-          );
-        },
-      ),
+            );
+          }),
     );
   }
 }

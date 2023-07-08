@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutterhelp/main/tdataPasien.dart';
+import 'package:flutterhelp/main/tdummyData.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class MyFormPasien extends StatefulWidget {
   const MyFormPasien({super.key});
@@ -17,11 +20,23 @@ class _MyFormPasienState extends State<MyFormPasien> {
   String? dropdownError;
 
   final _formkey = GlobalKey<FormState>();
-
   String _SelectedRadio = "";
+  TextEditingController namaController = TextEditingController();
+  // TextEditingController genderController = TextEditingController();
+  TextEditingController? tLahirController;
+  TextEditingController noTeleponController = TextEditingController();
+  TextEditingController alamatController = TextEditingController();
+  TextEditingController pekerjaanController = TextEditingController();
+  // TextEditingController imunisasiController = TextEditingController();
+  TextEditingController? tBerkunjungController;
+  TextEditingController alergiController = TextEditingController();
+  TextEditingController anamnesaController = TextEditingController();
+  TextEditingController diagnosaController = TextEditingController();
+  TextEditingController therapyController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    var prov = Provider.of<DataPasien>(context);
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -50,6 +65,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                     child: TextFormField(
+                      controller: namaController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Mohon isi Nama Pasien';
@@ -147,7 +163,8 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                   }
                                   return null;
                                 },
-                                controller: TextEditingController(
+                                controller: tLahirController =
+                                    TextEditingController(
                                   text: _date != null
                                       ? DateFormat('yyyy-MM-dd').format(_date!)
                                       : '',
@@ -208,6 +225,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                     child: TextFormField(
+                      controller: noTeleponController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Mohon isi Nomor Telepon';
@@ -226,6 +244,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                     child: TextFormField(
+                      controller: alamatController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Mohon isi Alamat anda';
@@ -244,6 +263,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                     child: TextFormField(
+                      controller: pekerjaanController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Mohon isi Pekerjaan anda';
@@ -314,7 +334,8 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                   }
                                   return null;
                                 },
-                                controller: TextEditingController(
+                                controller: tBerkunjungController =
+                                    TextEditingController(
                                   text: _date2 != null
                                       ? DateFormat('yyyy-MM-dd').format(_date2!)
                                       : '',
@@ -375,6 +396,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                     child: TextFormField(
+                      controller: alergiController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Mohon isi Alergi yang ada';
@@ -393,6 +415,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                     child: TextFormField(
+                      controller: anamnesaController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Mohon isi Anamnesanya';
@@ -411,6 +434,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                     child: TextFormField(
+                      controller: diagnosaController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Mohon isi Diagnosanya';
@@ -429,6 +453,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                     child: TextFormField(
+                      controller: therapyController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Mohon isi Therapynya';
@@ -452,22 +477,53 @@ class _MyFormPasienState extends State<MyFormPasien> {
                     children: [
                       ElevatedButton(
                         onPressed: () {
+                          String namaPasien = namaController.text.trim();
+                          String tLahirPasien = tLahirController!.text.trim();
+                          String noTeleponPasien =
+                              noTeleponController.text.trim();
+                          String alamatPasien = alamatController.text.trim();
+                          String pekerjaanPasien =
+                              pekerjaanController.text.trim();
+                          String tBerkunjungPasien =
+                              tBerkunjungController!.text.trim();
+                          String alergiPasien = alergiController.text.trim();
+                          String anamnesaPasien =
+                              anamnesaController.text.trim();
+                          String diagnosaPasien =
+                              diagnosaController.text.trim();
+                          String therapyPasien = therapyController.text.trim();
+                          prov.tambahPasien(
+                            namaPasien,
+                            selectedValue!,
+                            tLahirPasien,
+                            noTeleponPasien,
+                            alamatPasien,
+                            pekerjaanPasien,
+                            _SelectedRadio,
+                            alergiPasien,
+                            tBerkunjungPasien,
+                            anamnesaPasien,
+                            diagnosaPasien,
+                            therapyPasien,
+                          );
+                          // prov.addMrecord(tBerkunjungPasien, anamnesaPasien,
+                          //     diagnosaPasien, therapyPasien, namaPasien);
                           if (_formkey.currentState!.validate() == true) {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: Text('Form Anda Diterima'),
                               backgroundColor: Colors.green,
                             ));
-                            Navigator.pushReplacement(
+                            Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => MyFormPasien()));
+                                    builder: (context) => MytDataPasien()));
                           }
                           ;
                         },
                         style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.green,
                           alignment: Alignment.centerRight,
-                          primary: Colors.green,
-                          onPrimary: Colors.white,
                           elevation: 5,
                         ),
                         child: Text('Selesai'),

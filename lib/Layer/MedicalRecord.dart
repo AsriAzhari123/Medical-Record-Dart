@@ -1,7 +1,8 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
-
+import '../Provider/DarkModeProvider.dart';
 import '../Provider/Pasien_data.dart';
 import 'FAB_Med.dart';
 import 'Temp_TabMed.dart';
@@ -18,12 +19,13 @@ class MyMedicalRecord extends StatefulWidget {
 class _MyMedicalRecordState extends State<MyMedicalRecord> {
   String editedAllergyText = "";
   bool isEditing = false;
-  TextEditingController textEditingController1 = TextEditingController();
+  late TextEditingController textEditingController1;
 
   @override
   void initState() {
     super.initState();
-    textEditingController1.text = widget.pasienData['Alergi']!;
+    textEditingController1 =
+        TextEditingController(text: widget.pasienData['Alergi']);
   }
 
   @override
@@ -35,7 +37,7 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
   @override
   Widget build(BuildContext context) {
     String allergyText =
-        isEditing ? editedAllergyText : widget.pasienData['Alergi']!;
+        isEditing ? editedAllergyText : widget.pasienData['Alergi'];
     String NamaText = widget.pasienData['Nama']!;
     String JenisKelaminText = widget.pasienData['JenisKelamin']!;
     String NomorTeleponText = widget.pasienData['NomorTelepon']!;
@@ -44,7 +46,8 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
     String ImunisasiText = widget.pasienData['Imunisasi']!;
     String TanggalLahirText = widget.pasienData['TanggalLahir']!;
     var prov = Provider.of<DataPasien>(context);
-    return Scaffold(
+    return Consumer<DarkModeProvider>(builder: (context, darkModeProvider, _) {
+      return Scaffold(
         backgroundColor: Colors.green,
         appBar: AppBar(
           title: Text(
@@ -80,9 +83,9 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                                 Container(
                                   width: 137,
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color:
-                                          Color.fromRGBO(202, 255, 160, 100)),
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Color.fromRGBO(202, 255, 160, 100),
+                                  ),
                                   child: Padding(
                                     padding: const EdgeInsets.all(7.0),
                                     child: Column(
@@ -99,7 +102,8 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                                             Text(
                                               "${NamaText}\n",
                                               style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                               textAlign: TextAlign.center,
                                               softWrap: true,
                                             ),
@@ -109,7 +113,8 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                                           "100000001",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
-                                              fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -118,9 +123,9 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                                 Container(
                                   width: 137,
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color:
-                                          Color.fromRGBO(202, 255, 160, 100)),
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Color.fromRGBO(202, 255, 160, 100),
+                                  ),
                                   child: Padding(
                                     padding: const EdgeInsets.all(11.0),
                                     child: Column(
@@ -130,37 +135,44 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                                         Text(
                                           "Data Pasien",
                                           style: TextStyle(
-                                              fontWeight: FontWeight.w800),
+                                            fontWeight: FontWeight.w800,
+                                          ),
                                         ),
                                         Text(
                                           TanggalLahirText,
                                           style: TextStyle(
-                                              fontWeight: FontWeight.w500),
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                         Text(
                                           AlamatText,
                                           style: TextStyle(
-                                              fontWeight: FontWeight.w500),
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                         Text(
                                           NomorTeleponText,
                                           style: TextStyle(
-                                              fontWeight: FontWeight.w500),
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                         Text(
                                           JenisKelaminText,
                                           style: TextStyle(
-                                              fontWeight: FontWeight.w500),
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                         Text(
                                           PekerjaanText,
                                           style: TextStyle(
-                                              fontWeight: FontWeight.w500),
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                         Text(
                                           "${ImunisasiText} Imunisasi",
                                           style: TextStyle(
-                                              fontWeight: FontWeight.w500),
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -174,8 +186,9 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                           padding: const EdgeInsets.fromLTRB(47, 10, 47, 10),
                           child: Container(
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Color.fromRGBO(202, 255, 160, 100)),
+                              borderRadius: BorderRadius.circular(10),
+                              color: Color.fromRGBO(202, 255, 160, 100),
+                            ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -207,10 +220,12 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                                             widget.pasienData['Alergi'] =
                                                 editedAllergyText;
                                             ScaffoldMessenger.of(context)
-                                                .showSnackBar(SnackBar(
-                                              content:
-                                                  Text('Data Alergi diubah!'),
-                                            ));
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content:
+                                                    Text('Data Alergi diubah!'),
+                                              ),
+                                            );
                                           }
                                           editedAllergyText = "";
                                         }
@@ -242,7 +257,9 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                           child: Text(
                             "Riwayat Pasien",
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
                           ),
                         ),
                         Container(
@@ -264,12 +281,16 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (_) => addRiwayat(
-                        NamaText: NamaText,
-                      ))),
+            context,
+            MaterialPageRoute(
+              builder: (_) => addRiwayat(
+                NamaText: NamaText,
+              ),
+            ),
+          ),
           child: Icon(Icons.add),
-        ));
+        ),
+      );
+    });
   }
 }

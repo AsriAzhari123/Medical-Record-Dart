@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutterhelp/main/tdataPasien.dart';
-import 'package:flutterhelp/main/tdummyData.dart';
+
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
+import '../Provider/Pasien_data.dart';
+import 'DataPasien.dart';
 
 class MyFormPasien extends StatefulWidget {
   const MyFormPasien({super.key});

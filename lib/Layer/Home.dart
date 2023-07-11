@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../Provider/DarkModeProvider.dart';
+import '../Provider/user_data.dart';
 import '../core/utils/color_constant.dart';
 import '../core/utils/image_constant.dart';
 import '../core/utils/size_utils.dart';
@@ -17,6 +18,7 @@ class MyHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var prov = Provider.of<DataUser>(context);
     return Consumer<DarkModeProvider>(
       builder: (context, darkModeProvider, _) {
         return SafeArea(
@@ -44,7 +46,7 @@ class MyHome extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "User !",
+                      "${prov.userLogin['Nama']}",
                       style: TextStyle(
                         color: darkModeProvider.isDarkMode
                             ? Colors.white

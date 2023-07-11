@@ -11,12 +11,16 @@ import 'package:rekapmedis/Provider/user_provider.dart';
 import 'Layer/Profile.dart';
 import 'Provider/DarkModeProvider.dart';
 import 'Provider/Pasien_data.dart';
+import 'Provider/user_data.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
       create: (_) => DataPasien(),
-    )
+    ),
+    ChangeNotifierProvider(
+      create: (_) => DataUser(),
+    ),
   ], child: MyApp()));
 }
 

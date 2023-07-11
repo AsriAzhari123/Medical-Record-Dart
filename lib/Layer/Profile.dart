@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rekapmedis/Layer/about.dart';
 import '../Provider/DarkModeProvider.dart';
+import '../Provider/user_data.dart';
 
 class MyProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var prov = Provider.of<DataUser>(context);
     return Consumer<DarkModeProvider>(
       builder: (context, darkModeProvider, _) {
         return Scaffold(
@@ -57,7 +59,7 @@ class MyProfile extends StatelessWidget {
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    "Asri Azhari",
+                                    "${prov.userLogin['Nama']}",
                                     style: TextStyle(
                                       fontSize: 25,
                                       fontWeight: FontWeight.bold,
@@ -70,7 +72,7 @@ class MyProfile extends StatelessWidget {
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    "asri.azhari@gmail.com",
+                                    "${prov.userLogin['Email']}",
                                     style: TextStyle(
                                       fontSize: 20,
                                       decoration: TextDecoration.underline,
@@ -83,7 +85,7 @@ class MyProfile extends StatelessWidget {
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    "082145462497",
+                                    "${prov.userLogin['NoTelepon']}",
                                     style: TextStyle(
                                       fontSize: 20,
                                       color: darkModeProvider.isDarkMode
@@ -95,7 +97,7 @@ class MyProfile extends StatelessWidget {
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    "211111133",
+                                    "${prov.userLogin['NSIP']}",
                                     style: TextStyle(
                                       fontSize: 20,
                                       color: darkModeProvider.isDarkMode

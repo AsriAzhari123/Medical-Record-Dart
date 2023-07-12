@@ -40,11 +40,11 @@ class DataPasien extends ChangeNotifier {
         "Alergi": "Asap",
         "Mrecord": [
           {
-            "TanggalBerkunjung": "12 April 2023",
-            "Anamnesa": "Demam1",
-            "Diagnosa": "Ispa (Infeksi saluran pernapasan atas)",
+            "TanggalBerkunjung": "24-08-2021",
+            "Anamnesa": "Ulu hati terasa panas, mual kurang lebih 1 minggu",
+            "Diagnosa": "Gastritis",
             "Therapy":
-                "Tensi 1301/80mmhg, injeksi duradil 1ml, Tablet ciprofloxacin 50mg 2x1, Tablet dapirin 500mg 3x1, Tablet grantusif 3x1, Tablet lanadexon 2x1"
+                "Sirup lambucid 3x1 sendok makan, Kapsul dobrizol X 1x1 sebelum makan, Tablet nufadon X 3x1"
           }
         ]
       },
@@ -59,11 +59,11 @@ class DataPasien extends ChangeNotifier {
         "Alergi": "Bulu Anjing",
         "Mrecord": [
           {
-            "TanggalBerkunjung": "12 April 2023",
-            "Anamnesa": "Demam2",
-            "Diagnosa": "Ispa (Infeksi saluran pernapasan atas)",
+            "TanggalBerkunjung": "12-12-2022",
+            "Anamnesa": "Mencret",
+            "Diagnosa": "Gastro entritis",
             "Therapy":
-                "Tensi 1302/80mmhg, injeksi duradil 1ml, Tablet ciprofloxacin 50mg 2x1, Tablet dapirin 500mg 3x1, Tablet grantusif 3x1, Tablet lanadexon 2x1"
+                "Kapsul dobrizol IV 1x1, Tablet anflat VI 3x1, Tablet molagit VIII 3x1, Tablet metrol VI 2x1"
           }
         ]
       },
@@ -78,10 +78,11 @@ class DataPasien extends ChangeNotifier {
         "Alergi": "Dihujat",
         "Mrecord": [
           {
-            "TanggalBerkunjung": "12 April 2023",
-            "Anamnesa": "Sakit Jiwa",
-            "Diagnosa": "Ispa (Infeksi saluran pernapasan atas)",
-            "Therapy": "Dikirim kerumah sakit jiwa"
+            "TanggalBerkunjung": "09-03-2023",
+            "Anamnesa": "Demam, Pilek, Batuk, sakit kurang lebih 4 hari",
+            "Diagnosa": "Commoncold",
+            "Therapy":
+                "Kapsul cefixim 200mg X 2x1, Kapsul omberzol X 2x1, Tablet fasgo 500mg X 3x1, Tablet grantusif X 3x1"
           }
         ]
       },

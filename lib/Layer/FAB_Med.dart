@@ -40,7 +40,10 @@ class _addRiwayatState extends State<addRiwayat> {
             appBar: AppBar(
               title: Text(
                 "Form Riwayat Pasien Baru",
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(
+                  color:
+                      darkModeProvider.isDarkMode ? Colors.white : Colors.black,
+                ),
               ),
               leading: IconButton(
                 onPressed: () {
@@ -61,12 +64,19 @@ class _addRiwayatState extends State<addRiwayat> {
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: Text(
                         "Tanggal Berkunjung",
-                        style: TextStyle(color: Colors.black, fontSize: 20),
+                        style: TextStyle(
+                            color: darkModeProvider.isDarkMode
+                                ? Colors.white
+                                : Colors.black,
+                            fontSize: 20),
                       ),
                     ),
                     TextField(
                       controller: tanggalController,
+                      style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -76,11 +86,18 @@ class _addRiwayatState extends State<addRiwayat> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: Text("Anamnesa",
-                          style: TextStyle(color: Colors.black, fontSize: 20)),
+                          style: TextStyle(
+                              color: darkModeProvider.isDarkMode
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontSize: 20)),
                     ),
                     TextField(
                       controller: anamnesaController,
+                      style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -90,11 +107,18 @@ class _addRiwayatState extends State<addRiwayat> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: Text("Diagnosa",
-                          style: TextStyle(color: Colors.black, fontSize: 20)),
+                          style: TextStyle(
+                              color: darkModeProvider.isDarkMode
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontSize: 20)),
                     ),
                     TextField(
                       controller: diagnosaController,
+                      style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -104,11 +128,18 @@ class _addRiwayatState extends State<addRiwayat> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: Text("Therapy",
-                          style: TextStyle(color: Colors.black, fontSize: 20)),
+                          style: TextStyle(
+                              color: darkModeProvider.isDarkMode
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontSize: 20)),
                     ),
                     TextField(
                       controller: therapyController,
+                      style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
                         border: OutlineInputBorder(),
                       ),
                     ),

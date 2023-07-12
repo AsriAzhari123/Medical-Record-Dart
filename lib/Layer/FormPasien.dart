@@ -344,7 +344,8 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                   _selectedRadio = value!;
                                 });
                               },
-                              activeColor: Colors.black,
+                              activeColor:
+                                  isDarkMode ? Colors.white : Colors.black,
                             ),
                             Text(
                               "Sudah",
@@ -360,7 +361,8 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                   _selectedRadio = value!;
                                 });
                               },
-                              activeColor: Colors.black,
+                              activeColor:
+                                  isDarkMode ? Colors.white : Colors.black,
                             ),
                             Text(
                               "Belum",

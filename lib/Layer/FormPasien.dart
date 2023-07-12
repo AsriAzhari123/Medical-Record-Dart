@@ -50,13 +50,16 @@ class _MyFormPasienState extends State<MyFormPasien> {
       return Scaffold(
         appBar: AppBar(
           title: const Text(
-            'FORM PENDAFTARAN PASIEN BARU',
+            'PENDAFTARAN PASIEN',
             style: TextStyle(color: Colors.black),
           ),
           centerTitle: true,
           backgroundColor: Color.fromRGBO(127, 218, 244, 100),
-          leading: BackButton(
-            color: Colors.black,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back_ios_new, color: Colors.black),
           ),
         ),
         body: SingleChildScrollView(
@@ -77,6 +80,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                         return null;
                       },
                       maxLines: null,
+                      style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
@@ -115,6 +119,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                     ),
                                     isExpanded: true,
                                     value: selectedValue,
+                                    dropdownColor: Colors.white,
                                     icon: Icon(
                                       Icons.arrow_drop_down,
                                       color: Colors.black,
@@ -128,9 +133,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                           child: Text(
                                             "Laki-Laki",
                                             style: TextStyle(
-                                              color: isDarkMode
-                                                  ? Colors.white
-                                                  : Colors.black,
+                                              color: Colors.black,
                                             ),
                                           ),
                                         ),
@@ -144,9 +147,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                           child: Text(
                                             "Perempuan",
                                             style: TextStyle(
-                                              color: isDarkMode
-                                                  ? Colors.white
-                                                  : Colors.black,
+                                              color: Colors.black,
                                             ),
                                           ),
                                         ),
@@ -188,6 +189,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                   return null;
                                 },
                                 controller: tLahirController,
+                                style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                   fillColor: Colors.white,
                                   labelText: 'Tanggal Lahir',
@@ -262,6 +264,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                         return null;
                       },
                       maxLines: null,
+                      style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
@@ -282,6 +285,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                         return null;
                       },
                       maxLines: null,
+                      style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
@@ -302,6 +306,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                         return null;
                       },
                       maxLines: null,
+                      style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
@@ -383,6 +388,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                   return null;
                                 },
                                 controller: tBerkunjungController,
+                                style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                   fillColor: Colors.white,
                                   labelText: 'Tanggal Berkunjung',
@@ -457,6 +463,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                         return null;
                       },
                       maxLines: null,
+                      style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
@@ -477,6 +484,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                         return null;
                       },
                       maxLines: null,
+                      style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
@@ -497,6 +505,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                         return null;
                       },
                       maxLines: null,
+                      style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
@@ -517,6 +526,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                         return null;
                       },
                       maxLines: null,
+                      style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
@@ -534,36 +544,37 @@ class _MyFormPasienState extends State<MyFormPasien> {
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          String namaPasien = namaController.text.trim();
-                          String tLahirPasien = tLahirController!.text.trim();
-                          String noTeleponPasien =
-                              noTeleponController.text.trim();
-                          String alamatPasien = alamatController.text.trim();
-                          String pekerjaanPasien =
-                              pekerjaanController.text.trim();
-                          String tBerkunjungPasien =
-                              tBerkunjungController!.text.trim();
-                          String alergiPasien = alergiController.text.trim();
-                          String anamnesaPasien =
-                              anamnesaController.text.trim();
-                          String diagnosaPasien =
-                              diagnosaController.text.trim();
-                          String therapyPasien = therapyController.text.trim();
-                          prov.tambahPasien(
-                            namaPasien,
-                            selectedValue!,
-                            tLahirPasien,
-                            noTeleponPasien,
-                            alamatPasien,
-                            pekerjaanPasien,
-                            _selectedRadio,
-                            alergiPasien,
-                            tBerkunjungPasien,
-                            anamnesaPasien,
-                            diagnosaPasien,
-                            therapyPasien,
-                          );
-                          if (_formkey.currentState!.validate() == true) {
+                          if (_formkey.currentState!.validate()) {
+                            String namaPasien = namaController.text.trim();
+                            String tLahirPasien = tLahirController!.text.trim();
+                            String noTeleponPasien =
+                                noTeleponController.text.trim();
+                            String alamatPasien = alamatController.text.trim();
+                            String pekerjaanPasien =
+                                pekerjaanController.text.trim();
+                            String tBerkunjungPasien =
+                                tBerkunjungController!.text.trim();
+                            String alergiPasien = alergiController.text.trim();
+                            String anamnesaPasien =
+                                anamnesaController.text.trim();
+                            String diagnosaPasien =
+                                diagnosaController.text.trim();
+                            String therapyPasien =
+                                therapyController.text.trim();
+                            prov.tambahPasien(
+                              namaPasien,
+                              selectedValue!,
+                              tLahirPasien,
+                              noTeleponPasien,
+                              alamatPasien,
+                              pekerjaanPasien,
+                              _selectedRadio,
+                              alergiPasien,
+                              tBerkunjungPasien,
+                              anamnesaPasien,
+                              diagnosaPasien,
+                              therapyPasien,
+                            );
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: Text('Form Anda Diterima'),
                               backgroundColor:
@@ -574,6 +585,12 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                 MaterialPageRoute(
                                     builder: (context) => MyHome()),
                                 (route) => false);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content:
+                                  Text('Harap isi semua field yang diperlukan'),
+                              backgroundColor: Colors.red,
+                            ));
                           }
                         },
                         style: ElevatedButton.styleFrom(

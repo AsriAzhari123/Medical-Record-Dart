@@ -47,378 +47,387 @@ class _MyTabMedState extends State<MyTabMed> {
 
         return Padding(
           padding: const EdgeInsets.all(8.0),
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: widget.pasienData['Mrecord']!.length,
-            itemBuilder: (context, index) {
-              List<Map<String, dynamic>> record =
-                  widget.pasienData["Mrecord"] as List<Map<String, dynamic>>;
-              Map<String, dynamic> currentRecord = record[index];
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Container(
-                  width: 350,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: containerColor,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 8, 8, 18),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 5,
-                                child: Container(
-                                  child: Text(
-                                    "Tanggal Masuk\n${currentRecord['TanggalBerkunjung']}",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        color: textColor),
+          child: SingleChildScrollView(
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: widget.pasienData['Mrecord']!.length,
+              itemBuilder: (context, index) {
+                List<Map<String, dynamic>> record =
+                    widget.pasienData["Mrecord"] as List<Map<String, dynamic>>;
+                Map<String, dynamic> currentRecord = record[index];
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Container(
+                    width: 350,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: containerColor,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(8, 8, 8, 18),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 5,
+                                  child: Container(
+                                    child: Text(
+                                      "Tanggal Masuk\n${currentRecord['TanggalBerkunjung']}",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: textColor),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Expanded(
-                                flex: 0,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 1.0),
-                                  child: Container(
-                                    child: TextButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          if (isEditingAnamnesa ||
-                                              isEditingDiagnosa ||
-                                              isEditingTherapy) {
-                                            // Save the changes
-                                            if (isEditingAnamnesa) {
-                                              if (editedAnamnesaText
-                                                      .isNotEmpty &&
-                                                  editedAnamnesaText !=
-                                                      currentRecord[
-                                                          'Anamnesa']) {
-                                                currentRecord['Anamnesa'] =
-                                                    editedAnamnesaText;
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(SnackBar(
-                                                  content: Text(
-                                                    'Anamnesa pasien telah diubah!',
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  ),
-                                                  backgroundColor:
-                                                      snackBarColor,
-                                                ));
-                                              }
-                                              editedAnamnesaText = "";
-                                            }
-                                            if (isEditingDiagnosa) {
-                                              if (editedDiagnosaText
-                                                      .isNotEmpty &&
-                                                  editedDiagnosaText !=
-                                                      currentRecord[
-                                                          'Diagnosa']) {
-                                                currentRecord['Diagnosa'] =
-                                                    editedDiagnosaText;
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(SnackBar(
-                                                  content: Text(
-                                                    'Diagnosa pasien telah diubah!',
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  ),
-                                                  backgroundColor:
-                                                      snackBarColor,
-                                                ));
-                                              }
-                                              editedDiagnosaText = "";
-                                            }
-                                            if (isEditingTherapy) {
-                                              if (editedTherapyText
-                                                      .isNotEmpty &&
-                                                  editedTherapyText !=
-                                                      currentRecord[
-                                                          'Therapy']) {
-                                                currentRecord['Therapy'] =
-                                                    editedTherapyText;
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(SnackBar(
-                                                  content: Text(
-                                                    'Therapy Pasien telah diubah!',
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  ),
-                                                  backgroundColor:
-                                                      snackBarColor,
-                                                ));
-                                              }
-                                              editedTherapyText = "";
-                                            }
-                                          }
-
-                                          isEditingAnamnesa =
-                                              !isEditingAnamnesa;
-                                          isEditingDiagnosa =
-                                              !isEditingDiagnosa;
-                                          isEditingTherapy = !isEditingTherapy;
-                                        });
-                                      },
-                                      child: Text(
-                                        isEditingAnamnesa ||
+                                Expanded(
+                                  flex: 0,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 1.0),
+                                    child: Container(
+                                      child: TextButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            if (isEditingAnamnesa ||
                                                 isEditingDiagnosa ||
-                                                isEditingTherapy
-                                            ? "Save"
-                                            : "Edit",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            color: textColor),
+                                                isEditingTherapy) {
+                                              // Save the changes
+                                              if (isEditingAnamnesa) {
+                                                if (editedAnamnesaText
+                                                        .isNotEmpty &&
+                                                    editedAnamnesaText !=
+                                                        currentRecord[
+                                                            'Anamnesa']) {
+                                                  currentRecord['Anamnesa'] =
+                                                      editedAnamnesaText;
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                    content: Text(
+                                                      'Anamnesa pasien telah diubah!',
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                    backgroundColor:
+                                                        snackBarColor,
+                                                  ));
+                                                }
+                                                editedAnamnesaText = "";
+                                              }
+                                              if (isEditingDiagnosa) {
+                                                if (editedDiagnosaText
+                                                        .isNotEmpty &&
+                                                    editedDiagnosaText !=
+                                                        currentRecord[
+                                                            'Diagnosa']) {
+                                                  currentRecord['Diagnosa'] =
+                                                      editedDiagnosaText;
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                    content: Text(
+                                                      'Diagnosa pasien telah diubah!',
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                    backgroundColor:
+                                                        snackBarColor,
+                                                  ));
+                                                }
+                                                editedDiagnosaText = "";
+                                              }
+                                              if (isEditingTherapy) {
+                                                if (editedTherapyText
+                                                        .isNotEmpty &&
+                                                    editedTherapyText !=
+                                                        currentRecord[
+                                                            'Therapy']) {
+                                                  currentRecord['Therapy'] =
+                                                      editedTherapyText;
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                    content: Text(
+                                                      'Therapy Pasien telah diubah!',
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                    backgroundColor:
+                                                        snackBarColor,
+                                                  ));
+                                                }
+                                                editedTherapyText = "";
+                                              }
+                                            }
+
+                                            isEditingAnamnesa =
+                                                !isEditingAnamnesa;
+                                            isEditingDiagnosa =
+                                                !isEditingDiagnosa;
+                                            isEditingTherapy =
+                                                !isEditingTherapy;
+                                          });
+                                        },
+                                        child: Text(
+                                          isEditingAnamnesa ||
+                                                  isEditingDiagnosa ||
+                                                  isEditingTherapy
+                                              ? "Save"
+                                              : "Edit",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              color: textColor),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        Column(
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    width: 330,
-                                    decoration:
-                                        BoxDecoration(color: textFieldColor),
-                                    child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          8, 8, 8, 16),
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 8),
-                                            child: Row(
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      width: 330,
+                                      decoration:
+                                          BoxDecoration(color: textFieldColor),
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            8, 8, 8, 16),
+                                        child: Column(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 8),
+                                              child: Row(
+                                                children: [
+                                                  Text("Anamnesa / Cek Fisik",
+                                                      style: TextStyle(
+                                                          color: textColor)),
+                                                ],
+                                              ),
+                                            ),
+                                            Row(
                                               children: [
-                                                Text("Anamnesa / Cek Fisik",
-                                                    style: TextStyle(
-                                                        color: textColor)),
+                                                Expanded(
+                                                  child: isEditingAnamnesa
+                                                      ? TextField(
+                                                          controller:
+                                                              anamnesaController,
+                                                          onChanged: (value) {
+                                                            setState(() {
+                                                              editedAnamnesaText =
+                                                                  value;
+                                                            });
+                                                          },
+                                                          decoration:
+                                                              InputDecoration(
+                                                            border:
+                                                                OutlineInputBorder(),
+                                                            fillColor:
+                                                                textFieldColor,
+                                                            filled: true,
+                                                          ),
+                                                          style: TextStyle(
+                                                              color: textColor),
+                                                        )
+                                                      : Text(
+                                                          isEditingAnamnesa
+                                                              ? editedAnamnesaText
+                                                                      .isNotEmpty
+                                                                  ? editedAnamnesaText
+                                                                  : currentRecord[
+                                                                          'Anamnesa'] ??
+                                                                      ''
+                                                              : currentRecord[
+                                                                      'Anamnesa'] ??
+                                                                  '',
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: textColor),
+                                                        ),
+                                                ),
                                               ],
                                             ),
-                                          ),
-                                          Row(
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 3.0),
+                                      child: Container(
+                                        width: 330,
+                                        decoration: BoxDecoration(
+                                            color: textFieldColor),
+                                        child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              8, 8, 8, 16),
+                                          child: Column(
                                             children: [
-                                              Expanded(
-                                                child: isEditingAnamnesa
-                                                    ? TextField(
-                                                        controller:
-                                                            anamnesaController,
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            editedAnamnesaText =
-                                                                value;
-                                                          });
-                                                        },
-                                                        decoration:
-                                                            InputDecoration(
-                                                          border:
-                                                              OutlineInputBorder(),
-                                                          fillColor:
-                                                              textFieldColor,
-                                                          filled: true,
-                                                        ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 8),
+                                                child: Row(
+                                                  children: [
+                                                    Text("Diagnosa",
                                                         style: TextStyle(
-                                                            color: textColor),
-                                                      )
-                                                    : Text(
-                                                        isEditingAnamnesa
-                                                            ? editedAnamnesaText
-                                                                    .isNotEmpty
-                                                                ? editedAnamnesaText
+                                                            color: textColor)),
+                                                  ],
+                                                ),
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: isEditingDiagnosa
+                                                        ? TextField(
+                                                            controller:
+                                                                diagnosaController,
+                                                            onChanged: (value) {
+                                                              setState(() {
+                                                                editedDiagnosaText =
+                                                                    value;
+                                                              });
+                                                            },
+                                                            decoration:
+                                                                InputDecoration(
+                                                              border:
+                                                                  OutlineInputBorder(),
+                                                              fillColor:
+                                                                  textFieldColor,
+                                                              filled: true,
+                                                            ),
+                                                            style: TextStyle(
+                                                                color:
+                                                                    textColor),
+                                                          )
+                                                        : Text(
+                                                            isEditingDiagnosa
+                                                                ? editedDiagnosaText
+                                                                        .isNotEmpty
+                                                                    ? editedDiagnosaText
+                                                                    : currentRecord[
+                                                                            'Diagnosa'] ??
+                                                                        ''
                                                                 : currentRecord[
-                                                                        'Anamnesa'] ??
-                                                                    ''
-                                                            : currentRecord[
-                                                                    'Anamnesa'] ??
-                                                                '',
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: textColor),
-                                                      ),
+                                                                        'Diagnosa'] ??
+                                                                    '',
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color:
+                                                                    textColor),
+                                                          ),
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 3.0),
-                                    child: Container(
-                                      width: 330,
-                                      decoration:
-                                          BoxDecoration(color: textFieldColor),
-                                      child: Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            8, 8, 8, 16),
-                                        child: Column(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  bottom: 8),
-                                              child: Row(
-                                                children: [
-                                                  Text("Diagnosa",
-                                                      style: TextStyle(
-                                                          color: textColor)),
-                                                ],
-                                              ),
-                                            ),
-                                            Row(
-                                              children: [
-                                                Expanded(
-                                                  child: isEditingDiagnosa
-                                                      ? TextField(
-                                                          controller:
-                                                              diagnosaController,
-                                                          onChanged: (value) {
-                                                            setState(() {
-                                                              editedDiagnosaText =
-                                                                  value;
-                                                            });
-                                                          },
-                                                          decoration:
-                                                              InputDecoration(
-                                                            border:
-                                                                OutlineInputBorder(),
-                                                            fillColor:
-                                                                textFieldColor,
-                                                            filled: true,
-                                                          ),
-                                                          style: TextStyle(
-                                                              color: textColor),
-                                                        )
-                                                      : Text(
-                                                          isEditingDiagnosa
-                                                              ? editedDiagnosaText
-                                                                      .isNotEmpty
-                                                                  ? editedDiagnosaText
-                                                                  : currentRecord[
-                                                                          'Diagnosa'] ??
-                                                                      ''
-                                                              : currentRecord[
-                                                                      'Diagnosa'] ??
-                                                                  '',
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color: textColor),
-                                                        ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 3.0),
-                                    child: Container(
-                                      width: 330,
-                                      decoration:
-                                          BoxDecoration(color: textFieldColor),
-                                      child: Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            8, 8, 8, 16),
-                                        child: Column(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  bottom: 8),
-                                              child: Row(
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 3.0),
+                                      child: Container(
+                                        width: 330,
+                                        decoration: BoxDecoration(
+                                            color: textFieldColor),
+                                        child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              8, 8, 8, 16),
+                                          child: Column(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 8),
+                                                child: Row(
+                                                  children: [
+                                                    Text("Therapy",
+                                                        style: TextStyle(
+                                                            color: textColor)),
+                                                  ],
+                                                ),
+                                              ),
+                                              Row(
                                                 children: [
-                                                  Text("Therapy",
-                                                      style: TextStyle(
-                                                          color: textColor)),
+                                                  Expanded(
+                                                    child: isEditingTherapy
+                                                        ? TextField(
+                                                            controller:
+                                                                therapyController,
+                                                            onChanged: (value) {
+                                                              setState(() {
+                                                                editedTherapyText =
+                                                                    value;
+                                                              });
+                                                            },
+                                                            decoration:
+                                                                InputDecoration(
+                                                              border:
+                                                                  OutlineInputBorder(),
+                                                              fillColor:
+                                                                  textFieldColor,
+                                                              filled: true,
+                                                            ),
+                                                            style: TextStyle(
+                                                                color:
+                                                                    textColor),
+                                                          )
+                                                        : Text(
+                                                            isEditingTherapy
+                                                                ? editedTherapyText
+                                                                        .isNotEmpty
+                                                                    ? editedTherapyText
+                                                                    : currentRecord[
+                                                                            'Therapy'] ??
+                                                                        ''
+                                                                : currentRecord[
+                                                                        'Therapy'] ??
+                                                                    '',
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color:
+                                                                    textColor),
+                                                          ),
+                                                  ),
                                                 ],
                                               ),
-                                            ),
-                                            Row(
-                                              children: [
-                                                Expanded(
-                                                  child: isEditingTherapy
-                                                      ? TextField(
-                                                          controller:
-                                                              therapyController,
-                                                          onChanged: (value) {
-                                                            setState(() {
-                                                              editedTherapyText =
-                                                                  value;
-                                                            });
-                                                          },
-                                                          decoration:
-                                                              InputDecoration(
-                                                            border:
-                                                                OutlineInputBorder(),
-                                                            fillColor:
-                                                                textFieldColor,
-                                                            filled: true,
-                                                          ),
-                                                          style: TextStyle(
-                                                              color: textColor),
-                                                        )
-                                                      : Text(
-                                                          isEditingTherapy
-                                                              ? editedTherapyText
-                                                                      .isNotEmpty
-                                                                  ? editedTherapyText
-                                                                  : currentRecord[
-                                                                          'Therapy'] ??
-                                                                      ''
-                                                              : currentRecord[
-                                                                      'Therapy'] ??
-                                                                  '',
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color: textColor),
-                                                        ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         );
       },

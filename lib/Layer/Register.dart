@@ -209,7 +209,7 @@ class _MyRegisterState extends State<MyRegister> {
                                     ? 'Harap isi Nomor Telepon'
                                     : null,
                               ),
-                              maxLength: 9,
+                              maxLength: 12,
                               inputFormatters: <TextInputFormatter>[
                                 FilteringTextInputFormatter.digitsOnly
                               ],

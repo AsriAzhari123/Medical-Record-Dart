@@ -9,17 +9,18 @@ class MyAbout extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Tentang Aplikasi',
+          style: TextStyle(
+            color: Colors.black, // Mengatur warna teks judul menjadi hitam
+          ),
         ),
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 224, 255, 200),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {},
-          )
-        ],
-        leading: BackButton(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
           color: Colors.black,
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
       body: Row(

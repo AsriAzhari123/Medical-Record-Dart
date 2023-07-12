@@ -35,6 +35,16 @@ class _MyTabMedState extends State<MyTabMed> {
   Widget build(BuildContext context) {
     return Consumer<DarkModeProvider>(
       builder: (context, darkModeProvider, _) {
+        bool isDarkMode = darkModeProvider.isDarkMode;
+
+        Color containerColor =
+            isDarkMode ? Colors.black : Color.fromRGBO(202, 255, 160, 100);
+        Color textColor = isDarkMode ? Colors.white : Colors.black;
+        Color textFieldColor = isDarkMode ? Colors.grey[900]! : Colors.white;
+        Color buttonColor = isDarkMode ? Colors.blue : Colors.green;
+        Color? snackBarColor =
+            isDarkMode ? Colors.grey[800]! : Colors.grey[300];
+
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListView.builder(
@@ -50,7 +60,7 @@ class _MyTabMedState extends State<MyTabMed> {
                   width: 350,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Color.fromRGBO(202, 255, 160, 100),
+                    color: containerColor,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
@@ -65,8 +75,9 @@ class _MyTabMedState extends State<MyTabMed> {
                                 child: Container(
                                   child: Text(
                                     "Tanggal Masuk\n${currentRecord['TanggalBerkunjung']}",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w600),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        color: textColor),
                                   ),
                                 ),
                               ),
@@ -94,6 +105,8 @@ class _MyTabMedState extends State<MyTabMed> {
                                                     .showSnackBar(SnackBar(
                                                   content: Text(
                                                       'Data sudah terganti'),
+                                                  backgroundColor:
+                                                      snackBarColor,
                                                 ));
                                               }
                                               editedAnamnesaText = "";
@@ -110,6 +123,8 @@ class _MyTabMedState extends State<MyTabMed> {
                                                     .showSnackBar(SnackBar(
                                                   content: Text(
                                                       'Data sudah terganti'),
+                                                  backgroundColor:
+                                                      snackBarColor,
                                                 ));
                                               }
                                               editedDiagnosaText = "";
@@ -126,6 +141,8 @@ class _MyTabMedState extends State<MyTabMed> {
                                                     .showSnackBar(SnackBar(
                                                   content: Text(
                                                       'Data Pasien diubah!'),
+                                                  backgroundColor:
+                                                      snackBarColor,
                                                 ));
                                               }
                                               editedTherapyText = "";
@@ -148,6 +165,11 @@ class _MyTabMedState extends State<MyTabMed> {
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
                                       ),
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                buttonColor),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -163,7 +185,7 @@ class _MyTabMedState extends State<MyTabMed> {
                                   child: Container(
                                     width: 330,
                                     decoration:
-                                        BoxDecoration(color: Colors.white),
+                                        BoxDecoration(color: textFieldColor),
                                     child: Padding(
                                       padding: const EdgeInsets.fromLTRB(
                                           8, 8, 8, 16),
@@ -174,7 +196,9 @@ class _MyTabMedState extends State<MyTabMed> {
                                                 bottom: 8),
                                             child: Row(
                                               children: [
-                                                Text("Anamnesa / Cek Fisik"),
+                                                Text("Anamnesa / Cek Fisik",
+                                                    style: TextStyle(
+                                                        color: textColor)),
                                               ],
                                             ),
                                           ),
@@ -195,7 +219,12 @@ class _MyTabMedState extends State<MyTabMed> {
                                                             InputDecoration(
                                                           border:
                                                               OutlineInputBorder(),
+                                                          fillColor:
+                                                              textFieldColor,
+                                                          filled: true,
                                                         ),
+                                                        style: TextStyle(
+                                                            color: textColor),
                                                       )
                                                     : Text(
                                                         isEditingAnamnesa
@@ -210,8 +239,8 @@ class _MyTabMedState extends State<MyTabMed> {
                                                                 '',
                                                         style: TextStyle(
                                                             fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                                FontWeight.bold,
+                                                            color: textColor),
                                                       ),
                                               ),
                                             ],
@@ -231,7 +260,7 @@ class _MyTabMedState extends State<MyTabMed> {
                                     child: Container(
                                       width: 330,
                                       decoration:
-                                          BoxDecoration(color: Colors.white),
+                                          BoxDecoration(color: textFieldColor),
                                       child: Padding(
                                         padding: const EdgeInsets.fromLTRB(
                                             8, 8, 8, 16),
@@ -242,7 +271,9 @@ class _MyTabMedState extends State<MyTabMed> {
                                                   bottom: 8),
                                               child: Row(
                                                 children: [
-                                                  Text("Diagnosa"),
+                                                  Text("Diagnosa",
+                                                      style: TextStyle(
+                                                          color: textColor)),
                                                 ],
                                               ),
                                             ),
@@ -263,7 +294,12 @@ class _MyTabMedState extends State<MyTabMed> {
                                                               InputDecoration(
                                                             border:
                                                                 OutlineInputBorder(),
+                                                            fillColor:
+                                                                textFieldColor,
+                                                            filled: true,
                                                           ),
+                                                          style: TextStyle(
+                                                              color: textColor),
                                                         )
                                                       : Text(
                                                           isEditingDiagnosa
@@ -279,7 +315,8 @@ class _MyTabMedState extends State<MyTabMed> {
                                                           style: TextStyle(
                                                               fontWeight:
                                                                   FontWeight
-                                                                      .bold),
+                                                                      .bold,
+                                                              color: textColor),
                                                         ),
                                                 ),
                                               ],
@@ -300,7 +337,7 @@ class _MyTabMedState extends State<MyTabMed> {
                                     child: Container(
                                       width: 330,
                                       decoration:
-                                          BoxDecoration(color: Colors.white),
+                                          BoxDecoration(color: textFieldColor),
                                       child: Padding(
                                         padding: const EdgeInsets.fromLTRB(
                                             8, 8, 8, 16),
@@ -311,7 +348,9 @@ class _MyTabMedState extends State<MyTabMed> {
                                                   bottom: 8),
                                               child: Row(
                                                 children: [
-                                                  Text("Therapy"),
+                                                  Text("Therapy",
+                                                      style: TextStyle(
+                                                          color: textColor)),
                                                 ],
                                               ),
                                             ),
@@ -332,7 +371,12 @@ class _MyTabMedState extends State<MyTabMed> {
                                                               InputDecoration(
                                                             border:
                                                                 OutlineInputBorder(),
+                                                            fillColor:
+                                                                textFieldColor,
+                                                            filled: true,
                                                           ),
+                                                          style: TextStyle(
+                                                              color: textColor),
                                                         )
                                                       : Text(
                                                           isEditingTherapy
@@ -348,7 +392,8 @@ class _MyTabMedState extends State<MyTabMed> {
                                                           style: TextStyle(
                                                               fontWeight:
                                                                   FontWeight
-                                                                      .bold),
+                                                                      .bold,
+                                                              color: textColor),
                                                         ),
                                                 ),
                                               ],

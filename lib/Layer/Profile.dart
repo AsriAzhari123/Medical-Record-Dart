@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:rekapmedis/Layer/about.dart';
 import '../Provider/DarkModeProvider.dart';
 import '../Provider/user_data.dart';
+import 'Login.dart';
 
 class MyProfile extends StatelessWidget {
   @override
@@ -10,55 +11,62 @@ class MyProfile extends StatelessWidget {
     var prov = Provider.of<DataUser>(context);
     return Consumer<DarkModeProvider>(
       builder: (context, darkModeProvider, _) {
-        return Scaffold(
-          appBar: AppBar(
-            leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(Icons.arrow_back_ios_new, color: Colors.black),
+        return WillPopScope(
+          onWillPop: () async => false, // Disable the back button
+          child: Scaffold(
+            appBar: AppBar(
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(Icons.arrow_back_ios_new, color: Colors.black),
+              ),
             ),
-          ),
-          body: Container(
-            height: MediaQuery.of(context).size.height,
-            color: darkModeProvider.isDarkMode ? Colors.black : Colors.white,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Stack(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Stack(
-                            children: [
-                              Container(
-                                color: darkModeProvider.isDarkMode
-                                    ? Colors.black
-                                    : Colors.white,
-                                child: Image.asset(
-                                  'images/bannerprofile.png',
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              CircleAvatar(
-                                radius: 70,
-                                backgroundColor: Colors.white,
-                                child: CircleAvatar(
-                                  radius: 65,
-                                  backgroundImage:
-                                      Image.asset('images/profile.png').image,
-                                ),
-                              )
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                            child: Column(
+            body: Container(
+              height: MediaQuery.of(context).size.height,
+              color: darkModeProvider.isDarkMode ? Colors.black : Colors.white,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Stack(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Stack(
                               children: [
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
+                                Container(
+                                  color: darkModeProvider.isDarkMode
+                                      ? Colors.black
+                                      : Colors.white,
+                                  child: Image.asset(
+                                    'images/bannerprofile.png',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Positioned(
+                                  top: 40.0,
+                                  left: 20.0,
+                                  child: CircleAvatar(
+                                    radius: 70,
+                                    backgroundColor: Colors.white,
+                                    child: CircleAvatar(
+                                      radius: 65,
+                                      backgroundImage:
+                                          AssetImage('images/profile.png'),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
                                     "${prov.userLogin['Nama']}",
                                     style: TextStyle(
                                       fontSize: 25,
@@ -68,10 +76,7 @@ class MyProfile extends StatelessWidget {
                                           : Colors.black,
                                     ),
                                   ),
-                                ),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
+                                  Text(
                                     "${prov.userLogin['Email']}",
                                     style: TextStyle(
                                       fontSize: 20,
@@ -81,10 +86,7 @@ class MyProfile extends StatelessWidget {
                                           : Color.fromARGB(255, 95, 95, 95),
                                     ),
                                   ),
-                                ),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
+                                  Text(
                                     "${prov.userLogin['NoTelepon']}",
                                     style: TextStyle(
                                       fontSize: 20,
@@ -93,10 +95,7 @@ class MyProfile extends StatelessWidget {
                                           : Color.fromARGB(255, 95, 95, 95),
                                     ),
                                   ),
-                                ),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
+                                  Text(
                                     "${prov.userLogin['NSIP']}",
                                     style: TextStyle(
                                       fontSize: 20,
@@ -105,22 +104,22 @@ class MyProfile extends StatelessWidget {
                                           : Color.fromARGB(255, 95, 95, 95),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 15, 0, 0),
-                                  child: Column(
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
                                           "APP SETTING",
                                           style: TextStyle(
                                             fontSize: 20,
@@ -130,51 +129,50 @@ class MyProfile extends StatelessWidget {
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                      ),
-                                      ListTile(
-                                        dense: true,
-                                        contentPadding:
-                                            EdgeInsets.only(left: 0, right: 0),
-                                        leading: Icon(
-                                          Icons.dark_mode,
-                                          color: darkModeProvider.isDarkMode
-                                              ? Colors.grey[300]
-                                              : Colors.black,
-                                        ),
-                                        title: Text(
-                                          "Dark Mode",
-                                          style: TextStyle(
-                                            fontSize: 20,
+                                        ListTile(
+                                          dense: true,
+                                          contentPadding: EdgeInsets.only(
+                                              left: 0, right: 0),
+                                          leading: Icon(
+                                            Icons.dark_mode,
                                             color: darkModeProvider.isDarkMode
                                                 ? Colors.grey[300]
                                                 : Colors.black,
-                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          title: Text(
+                                            "Dark Mode",
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              color: darkModeProvider.isDarkMode
+                                                  ? Colors.grey[300]
+                                                  : Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          trailing: Switch(
+                                            value: darkModeProvider.isDarkMode,
+                                            onChanged: (bool value) {
+                                              darkModeProvider.toggleDarkMode();
+                                            },
                                           ),
                                         ),
-                                        trailing: Switch(
-                                          value: darkModeProvider.isDarkMode,
-                                          onChanged: (bool value) {
-                                            darkModeProvider.toggleDarkMode();
-                                          },
-                                        ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                Divider(
-                                  thickness: 2,
-                                  color: darkModeProvider.isDarkMode
-                                      ? Colors.grey[700]
-                                      : Color.fromARGB(255, 165, 165, 165),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 15, 0, 10),
-                                  child: Column(
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
+                                  Divider(
+                                    thickness: 2,
+                                    color: darkModeProvider.isDarkMode
+                                        ? Colors.grey[700]
+                                        : Color.fromARGB(255, 165, 165, 165),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 15, 0, 10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
                                           "INFORMASI UMUM",
                                           style: TextStyle(
                                             fontSize: 20,
@@ -184,54 +182,54 @@ class MyProfile extends StatelessWidget {
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                      ),
-                                      ListTile(
-                                        dense: true,
-                                        contentPadding:
-                                            EdgeInsets.only(left: 0, right: 0),
-                                        leading: Icon(
-                                          Icons.info,
-                                          color: darkModeProvider.isDarkMode
-                                              ? Colors.grey[300]
-                                              : Colors.black,
-                                        ),
-                                        title: Text(
-                                          "Tentang Aplikasi",
-                                          style: TextStyle(
-                                            fontSize: 20,
+                                        ListTile(
+                                          dense: true,
+                                          contentPadding: EdgeInsets.only(
+                                              left: 0, right: 0),
+                                          leading: Icon(
+                                            Icons.info,
                                             color: darkModeProvider.isDarkMode
                                                 ? Colors.grey[300]
                                                 : Colors.black,
-                                            fontWeight: FontWeight.bold,
                                           ),
-                                        ),
-                                        trailing: Icon(
-                                            Icons.arrow_forward_ios_rounded),
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    MyAbout()),
-                                          );
-                                        },
-                                      ),
-                                      Divider(
-                                        thickness: 2,
-                                        color: darkModeProvider.isDarkMode
-                                            ? Colors.grey[700]
-                                            : Color.fromARGB(
-                                                255, 165, 165, 165),
-                                      ),
-                                      ListTile(
+                                          title: Text(
+                                            "Tentang Aplikasi",
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              color: darkModeProvider.isDarkMode
+                                                  ? Colors.grey[300]
+                                                  : Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
                                           trailing: Icon(
                                               Icons.arrow_forward_ios_rounded),
                                           onTap: () {
-                                            Navigator.pop(
+                                            Navigator.push(
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      MyProfile()),
+                                                      MyAbout()),
+                                            );
+                                          },
+                                        ),
+                                        Divider(
+                                          thickness: 2,
+                                          color: darkModeProvider.isDarkMode
+                                              ? Colors.grey[700]
+                                              : Color.fromARGB(
+                                                  255, 165, 165, 165),
+                                        ),
+                                        ListTile(
+                                          trailing: Icon(
+                                              Icons.arrow_forward_ios_rounded),
+                                          onTap: () {
+                                            Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MyLogin()),
+                                              (route) => false,
                                             );
                                           },
                                           dense: true,
@@ -251,25 +249,27 @@ class MyProfile extends StatelessWidget {
                                                   ? Colors.grey[300]
                                                   : Colors.black,
                                             ),
-                                          )),
-                                      Divider(
-                                        thickness: 2,
-                                        color: darkModeProvider.isDarkMode
-                                            ? Colors.grey[700]
-                                            : Color.fromARGB(
-                                                255, 165, 165, 165),
-                                      ),
-                                    ],
+                                          ),
+                                        ),
+                                        Divider(
+                                          thickness: 2,
+                                          color: darkModeProvider.isDarkMode
+                                              ? Colors.grey[700]
+                                              : Color.fromARGB(
+                                                  255, 165, 165, 165),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

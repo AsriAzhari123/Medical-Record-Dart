@@ -1,6 +1,8 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:carousel_slider/carousel_slider.dart';
 import '../Provider/DarkModeProvider.dart';
 import '../Provider/user_data.dart';
 import '../core/utils/color_constant.dart';
@@ -92,10 +94,51 @@ class MyHome extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomImageView(
-                    imagePath: ImageConstant.imgBannerhome1,
-                    height: getVerticalSize(169),
-                    width: getHorizontalSize(360),
+                  CarouselSlider(
+                    options: CarouselOptions(
+                      height: 200.0,
+                      autoPlay: true,
+                      autoPlayInterval: Duration(seconds: 3),
+                      autoPlayAnimationDuration: Duration(milliseconds: 800),
+                      autoPlayCurve: Curves.easeInOut,
+                      pauseAutoPlayOnTouch: true,
+                      aspectRatio: 2.0,
+                      onPageChanged: (index, reason) {
+                        // setState(() {
+                        //   _current = index;
+                        // });
+                      },
+                    ),
+                    items: [
+                      Image.asset(
+                        'images/BannefHome.png',
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                      Image.asset(
+                        'images/dokter.jpg',
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                      Image.asset(
+                        'images/obatpil.jpg',
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                    ].map((i) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: getMargin(left: 5, right: 5),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: i,
+                          );
+                        },
+                      );
+                    }).toList(),
                   ),
                   Padding(
                     padding: getPadding(left: 32, top: 21),

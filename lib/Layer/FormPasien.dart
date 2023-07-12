@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:rekapmedis/Layer/Home.dart';
 
+import '../Provider/DarkModeProvider.dart';
 import '../Provider/Pasien_data.dart';
-import 'DataPasien.dart';
 
 class MyFormPasien extends StatefulWidget {
-  const MyFormPasien({super.key});
+  const MyFormPasien({Key? key}) : super(key: key);
 
   @override
   State<MyFormPasien> createState() => _MyFormPasienState();
@@ -17,19 +17,16 @@ class _MyFormPasienState extends State<MyFormPasien> {
   DateTime? _date;
   DateTime? _date2;
   bool formCompleted = false;
-  // var _date = DateTime.now();
   String? selectedValue;
   String? dropdownError;
 
   final _formkey = GlobalKey<FormState>();
-  String _SelectedRadio = "";
+  String _selectedRadio = "";
   TextEditingController namaController = TextEditingController();
-  // TextEditingController genderController = TextEditingController();
   TextEditingController? tLahirController;
   TextEditingController noTeleponController = TextEditingController();
   TextEditingController alamatController = TextEditingController();
   TextEditingController pekerjaanController = TextEditingController();
-  // TextEditingController imunisasiController = TextEditingController();
   TextEditingController? tBerkunjungController;
   TextEditingController alergiController = TextEditingController();
   TextEditingController anamnesaController = TextEditingController();
@@ -37,15 +34,27 @@ class _MyFormPasienState extends State<MyFormPasien> {
   TextEditingController therapyController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    tLahirController = TextEditingController();
+    tBerkunjungController = TextEditingController();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var prov = Provider.of<DataPasien>(context);
-    return Scaffold(
+    var brightness = Theme.of(context).brightness;
+    var isDarkMode = brightness == Brightness.dark;
+
+    return Consumer<DarkModeProvider>(builder: (context, darkModeProvider, _) {
+      return Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             'FORM PENDAFTARAN PASIEN BARU',
+            style: TextStyle(color: Colors.black),
           ),
           centerTitle: true,
-          backgroundColor: const Color.fromARGB(255, 224, 255, 200),
+          backgroundColor: Colors.white,
           actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.arrow_back),
@@ -58,7 +67,9 @@ class _MyFormPasienState extends State<MyFormPasien> {
         ),
         body: SingleChildScrollView(
           child: Container(
-            color: const Color.fromARGB(255, 224, 255, 200),
+            color: isDarkMode
+                ? Colors.black
+                : const Color.fromARGB(255, 224, 255, 200),
             padding: EdgeInsets.all(10.0),
             child: Form(
               key: _formkey,
@@ -94,14 +105,12 @@ class _MyFormPasienState extends State<MyFormPasien> {
                               child: Container(
                                 width: MediaQuery.of(context).size.width,
                                 decoration: BoxDecoration(
-                                  color: Colors.white, // Background color
+                                  color: Colors.white,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(3)),
                                   border: Border.all(
-                                    color: Colors.black, // Border color
+                                    color: Colors.black,
                                   ),
-
-                                  // Border color
                                 ),
                                 child: DropdownButtonHideUnderline(
                                   child: DropdownButtonFormField(
@@ -115,8 +124,8 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                       DropdownMenuItem(
                                         child: Padding(
                                           padding: EdgeInsets.only(
-                                              left:
-                                                  10), // Geser teks pilihan dropdown ke kiri
+                                            left: 10,
+                                          ),
                                           child: Text("Laki-Laki"),
                                         ),
                                         value: "Laki - Laki",
@@ -124,8 +133,8 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                       DropdownMenuItem(
                                         child: Padding(
                                           padding: EdgeInsets.only(
-                                              left:
-                                                  10), // Geser teks pilihan dropdown ke kiri
+                                            left: 10,
+                                          ),
                                           child: Text("Perempuan"),
                                         ),
                                         value: "Perempuan",
@@ -165,12 +174,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                   }
                                   return null;
                                 },
-                                controller: tLahirController =
-                                    TextEditingController(
-                                  text: _date != null
-                                      ? DateFormat('yyyy-MM-dd').format(_date!)
-                                      : '',
-                                ),
+                                controller: tLahirController,
                                 decoration: InputDecoration(
                                   fillColor: Colors.white,
                                   labelText: 'Tanggal Lahir',
@@ -181,6 +185,11 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                     borderSide: BorderSide(color: Colors.black),
                                   ),
                                   filled: true,
+                                  labelStyle: TextStyle(
+                                    color: isDarkMode
+                                        ? Colors.white
+                                        : Colors.black,
+                                  ),
                                 ),
                                 readOnly: true,
                                 onTap: () async {
@@ -193,6 +202,9 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                   if (res != null) {
                                     setState(() {
                                       _date = res;
+                                      tLahirController!.text =
+                                          DateFormat('yyyy-MM-dd')
+                                              .format(_date!);
                                     });
                                   }
                                 },
@@ -212,6 +224,9 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                     if (res != null) {
                                       setState(() {
                                         _date = res;
+                                        tLahirController!.text =
+                                            DateFormat('yyyy-MM-dd')
+                                                .format(_date!);
                                       });
                                     }
                                   },
@@ -277,7 +292,8 @@ class _MyFormPasienState extends State<MyFormPasien> {
                         fillColor: Colors.white,
                         filled: true,
                         enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black)),
+                          borderSide: BorderSide(color: Colors.black),
+                        ),
                         labelText: 'Pekerjaan',
                         border: OutlineInputBorder(),
                       ),
@@ -292,33 +308,48 @@ class _MyFormPasienState extends State<MyFormPasien> {
                           padding: EdgeInsets.only(left: 10),
                           child: Text(
                             "Imunisasi",
-                            style: TextStyle(fontSize: 14),
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: isDarkMode ? Colors.white : Colors.black,
+                            ),
                           ),
                         ),
-                        Row(children: [
-                          Radio(
-                            value: "Sudah",
-                            groupValue: _SelectedRadio,
-                            onChanged: (value) {
-                              setState(() {
-                                _SelectedRadio = value!;
-                              });
-                            },
-                            activeColor: Colors.black,
-                          ),
-                          Text("Sudah"),
-                          Radio(
-                            value: "Belum",
-                            groupValue: _SelectedRadio,
-                            onChanged: (value) {
-                              setState(() {
-                                _SelectedRadio = value!;
-                              });
-                            },
-                            activeColor: Colors.black,
-                          ),
-                          Text("Belum"),
-                        ]),
+                        Row(
+                          children: [
+                            Radio(
+                              value: "Sudah",
+                              groupValue: _selectedRadio,
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedRadio = value!;
+                                });
+                              },
+                              activeColor: Colors.black,
+                            ),
+                            Text(
+                              "Sudah",
+                              style: TextStyle(
+                                color: isDarkMode ? Colors.white : Colors.black,
+                              ),
+                            ),
+                            Radio(
+                              value: "Belum",
+                              groupValue: _selectedRadio,
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedRadio = value!;
+                                });
+                              },
+                              activeColor: Colors.black,
+                            ),
+                            Text(
+                              "Belum",
+                              style: TextStyle(
+                                color: isDarkMode ? Colors.white : Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -336,12 +367,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                   }
                                   return null;
                                 },
-                                controller: tBerkunjungController =
-                                    TextEditingController(
-                                  text: _date2 != null
-                                      ? DateFormat('yyyy-MM-dd').format(_date2!)
-                                      : '',
-                                ),
+                                controller: tBerkunjungController,
                                 decoration: InputDecoration(
                                   fillColor: Colors.white,
                                   labelText: 'Tanggal Berkunjung',
@@ -352,6 +378,11 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                     borderSide: BorderSide(color: Colors.black),
                                   ),
                                   filled: true,
+                                  labelStyle: TextStyle(
+                                    color: isDarkMode
+                                        ? Colors.white
+                                        : Colors.black,
+                                  ),
                                 ),
                                 readOnly: true,
                                 onTap: () async {
@@ -364,6 +395,9 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                   if (res != null) {
                                     setState(() {
                                       _date2 = res;
+                                      tBerkunjungController!.text =
+                                          DateFormat('yyyy-MM-dd')
+                                              .format(_date2!);
                                     });
                                   }
                                 },
@@ -376,13 +410,16 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                   onPressed: () async {
                                     var res = await showDatePicker(
                                       context: context,
-                                      initialDate: _date ?? DateTime.now(),
+                                      initialDate: _date2 ?? DateTime.now(),
                                       firstDate: DateTime(1950),
                                       lastDate: DateTime(2250),
                                     );
                                     if (res != null) {
                                       setState(() {
-                                        _date = res;
+                                        _date2 = res;
+                                        tBerkunjungController!.text =
+                                            DateFormat('yyyy-MM-dd')
+                                                .format(_date2!);
                                       });
                                     }
                                   },
@@ -501,26 +538,24 @@ class _MyFormPasienState extends State<MyFormPasien> {
                             noTeleponPasien,
                             alamatPasien,
                             pekerjaanPasien,
-                            _SelectedRadio,
+                            _selectedRadio,
                             alergiPasien,
                             tBerkunjungPasien,
                             anamnesaPasien,
                             diagnosaPasien,
                             therapyPasien,
                           );
-                          // prov.addMrecord(tBerkunjungPasien, anamnesaPasien,
-                          //     diagnosaPasien, therapyPasien, namaPasien);
                           if (_formkey.currentState!.validate() == true) {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: Text('Form Anda Diterima'),
                               backgroundColor: Colors.green,
                             ));
-                            Navigator.push(
+                            Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => MytDataPasien()));
+                                    builder: (context) => MyHome()),
+                                (route) => false);
                           }
-                          ;
                         },
                         style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.white,
@@ -536,6 +571,8 @@ class _MyFormPasienState extends State<MyFormPasien> {
               ),
             ),
           ),
-        ));
+        ),
+      );
+    });
   }
 }

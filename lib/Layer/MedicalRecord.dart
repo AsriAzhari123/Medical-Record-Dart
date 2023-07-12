@@ -48,7 +48,6 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
     var prov = Provider.of<DataPasien>(context);
     return Consumer<DarkModeProvider>(builder: (context, darkModeProvider, _) {
       return Scaffold(
-        backgroundColor: Colors.green,
         appBar: AppBar(
           title: Text(
             "MEDICAL RECORD PASIEN",
@@ -96,24 +95,22 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                                           Icons.person,
                                           size: 55,
                                         ),
-                                        Wrap(
-                                          alignment: WrapAlignment.center,
-                                          children: [
-                                            Text(
-                                              "${NamaText}\n",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                              textAlign: TextAlign.center,
-                                              softWrap: true,
-                                            ),
-                                          ],
+                                        SizedBox(height: 8),
+                                        Text(
+                                          "${NamaText}\n",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                          softWrap: true,
                                         ),
                                         Text(
                                           "100000001",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
+                                            fontSize: 14,
                                           ),
                                         ),
                                       ],
@@ -136,42 +133,50 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                                           "Data Pasien",
                                           style: TextStyle(
                                             fontWeight: FontWeight.w800,
+                                            fontSize: 16,
                                           ),
                                         ),
+                                        SizedBox(height: 8),
                                         Text(
                                           TanggalLahirText,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w500,
+                                            fontSize: 14,
                                           ),
                                         ),
                                         Text(
                                           AlamatText,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w500,
+                                            fontSize: 14,
                                           ),
                                         ),
                                         Text(
                                           NomorTeleponText,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w500,
+                                            fontSize: 14,
                                           ),
                                         ),
                                         Text(
                                           JenisKelaminText,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w500,
+                                            fontSize: 14,
                                           ),
                                         ),
                                         Text(
                                           PekerjaanText,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w500,
+                                            fontSize: 14,
                                           ),
                                         ),
                                         Text(
                                           "${ImunisasiText} Imunisasi",
                                           style: TextStyle(
                                             fontWeight: FontWeight.w500,
+                                            fontSize: 14,
                                           ),
                                         ),
                                       ],
@@ -208,7 +213,8 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                                               border: OutlineInputBorder(),
                                             ),
                                           )
-                                        : Text("Alergi : $allergyText"),
+                                        : Text("Alergi : $allergyText",
+                                            style: TextStyle(fontSize: 16)),
                                   ),
                                 ),
                                 Expanded(
@@ -247,7 +253,6 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                   child: Container(
                     width: double.infinity,
-                    // height: MediaQuery.of(context).size.height,
                     color: Colors.white,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

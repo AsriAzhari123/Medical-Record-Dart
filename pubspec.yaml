@@ -29,6 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cached_network_image: ^3.2.3
+  carousel_slider: ^4.2.1
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
@@ -57,11 +58,14 @@ flutter:
     - images/profile.png
     - images/bannerprofile.png
     - images/BannerAbout.png
+    - images/dokter.jpg
+    - images/obatpil.jpg
+    - images/BannefHome.png
     - assets/
     - assets/images/
-  fonts: 
+  fonts:
     - family: Inter
-      fonts: 
+      fonts:
         - asset: assets/fonts/InterRegular.ttf
           weight: 400
   #   - images/a_dot_burr.jpeg

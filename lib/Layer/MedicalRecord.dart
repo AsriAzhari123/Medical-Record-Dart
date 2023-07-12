@@ -47,6 +47,11 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
     String TanggalLahirText = widget.pasienData['TanggalLahir']!;
     var prov = Provider.of<DataPasien>(context);
     return Consumer<DarkModeProvider>(builder: (context, darkModeProvider, _) {
+      bool isDarkMode = darkModeProvider.isDarkMode;
+      Color containerColor = isDarkMode ? Colors.black : Colors.white;
+      Color textColor = isDarkMode ? Colors.white : Colors.black;
+      Color? snackBarColor =
+          isDarkMode ? Color.fromRGBO(127, 218, 244, 100) : Colors.grey[800]!;
       return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -60,7 +65,7 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
             icon: Icon(Icons.arrow_back_ios_new),
             color: Colors.black,
           ),
-          backgroundColor: Colors.white,
+          backgroundColor: Color.fromRGBO(127, 218, 244, 100),
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -70,7 +75,7 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                   padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
                   child: Container(
                     width: double.infinity,
-                    color: Colors.white,
+                    color: Color.fromRGBO(127, 218, 244, 100),
                     child: Column(
                       children: [
                         Container(
@@ -83,7 +88,7 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                                   width: 137,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    color: Color.fromRGBO(202, 255, 160, 100),
+                                    color: containerColor,
                                   ),
                                   child: Padding(
                                     padding: const EdgeInsets.all(7.0),
@@ -99,9 +104,9 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                                         Text(
                                           "${NamaText}\n",
                                           style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
-                                          ),
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                              color: textColor),
                                           textAlign: TextAlign.center,
                                           softWrap: true,
                                         ),
@@ -109,9 +114,9 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                                           "100000001",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 14,
-                                          ),
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14,
+                                              color: textColor),
                                         ),
                                       ],
                                     ),
@@ -121,7 +126,7 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                                   width: 137,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    color: Color.fromRGBO(202, 255, 160, 100),
+                                    color: containerColor,
                                   ),
                                   child: Padding(
                                     padding: const EdgeInsets.all(11.0),
@@ -132,52 +137,52 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                                         Text(
                                           "Data Pasien",
                                           style: TextStyle(
-                                            fontWeight: FontWeight.w800,
-                                            fontSize: 16,
-                                          ),
+                                              fontWeight: FontWeight.w800,
+                                              fontSize: 16,
+                                              color: textColor),
                                         ),
                                         SizedBox(height: 8),
                                         Text(
                                           TanggalLahirText,
                                           style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 14,
-                                          ),
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                              color: textColor),
                                         ),
                                         Text(
                                           AlamatText,
                                           style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 14,
-                                          ),
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                              color: textColor),
                                         ),
                                         Text(
                                           NomorTeleponText,
                                           style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 14,
-                                          ),
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                              color: textColor),
                                         ),
                                         Text(
                                           JenisKelaminText,
                                           style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 14,
-                                          ),
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                              color: textColor),
                                         ),
                                         Text(
                                           PekerjaanText,
                                           style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 14,
-                                          ),
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                              color: textColor),
                                         ),
                                         Text(
                                           "${ImunisasiText} Imunisasi",
                                           style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 14,
-                                          ),
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                              color: textColor),
                                         ),
                                       ],
                                     ),
@@ -192,7 +197,7 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: Color.fromRGBO(202, 255, 160, 100),
+                              color: containerColor,
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -214,7 +219,9 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                                             ),
                                           )
                                         : Text("Alergi : $allergyText",
-                                            style: TextStyle(fontSize: 16)),
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: textColor)),
                                   ),
                                 ),
                                 Expanded(
@@ -228,8 +235,12 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               SnackBar(
-                                                content:
-                                                    Text('Data Alergi diubah!'),
+                                                content: Text(
+                                                  'Alergi pasien telah diubah!',
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                ),
+                                                backgroundColor: snackBarColor,
                                               ),
                                             );
                                           }
@@ -238,7 +249,10 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                                         isEditing = !isEditing;
                                       });
                                     },
-                                    child: Text(isEditing ? "Save" : "Edit"),
+                                    child: Text(
+                                      isEditing ? "Save" : "Edit",
+                                      style: TextStyle(color: textColor),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -253,7 +267,7 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                   child: Container(
                     width: double.infinity,
-                    color: Colors.white,
+                    color: Color.fromRGBO(127, 218, 244, 100),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -262,9 +276,9 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                           child: Text(
                             "Riwayat Pasien",
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: textColor),
                           ),
                         ),
                         Container(

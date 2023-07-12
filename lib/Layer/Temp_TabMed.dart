@@ -37,13 +37,13 @@ class _MyTabMedState extends State<MyTabMed> {
       builder: (context, darkModeProvider, _) {
         bool isDarkMode = darkModeProvider.isDarkMode;
 
-        Color containerColor =
-            isDarkMode ? Colors.black : Color.fromRGBO(202, 255, 160, 100);
+        Color containerColor = isDarkMode ? Colors.black : Colors.white;
         Color textColor = isDarkMode ? Colors.white : Colors.black;
-        Color textFieldColor = isDarkMode ? Colors.grey[900]! : Colors.white;
-        Color buttonColor = isDarkMode ? Colors.blue : Colors.green;
+        Color textFieldColor =
+            isDarkMode ? Colors.grey[900]! : Color.fromRGBO(0, 154, 205, 100);
+        // Color buttonColor = isDarkMode ? Colors.blue : Colors.green;
         Color? snackBarColor =
-            isDarkMode ? Colors.grey[800]! : Colors.grey[300];
+            isDarkMode ? Color.fromRGBO(127, 218, 244, 100) : Colors.grey[800]!;
 
         return Padding(
           padding: const EdgeInsets.all(8.0),
@@ -104,7 +104,10 @@ class _MyTabMedState extends State<MyTabMed> {
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(SnackBar(
                                                   content: Text(
-                                                      'Data sudah terganti'),
+                                                    'Anamnesa pasien telah diubah!',
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
                                                   backgroundColor:
                                                       snackBarColor,
                                                 ));
@@ -122,7 +125,10 @@ class _MyTabMedState extends State<MyTabMed> {
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(SnackBar(
                                                   content: Text(
-                                                      'Data sudah terganti'),
+                                                    'Diagnosa pasien telah diubah!',
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
                                                   backgroundColor:
                                                       snackBarColor,
                                                 ));
@@ -140,7 +146,10 @@ class _MyTabMedState extends State<MyTabMed> {
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(SnackBar(
                                                   content: Text(
-                                                      'Data Pasien diubah!'),
+                                                    'Therapy Pasien telah diubah!',
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
                                                   backgroundColor:
                                                       snackBarColor,
                                                 ));
@@ -163,12 +172,8 @@ class _MyTabMedState extends State<MyTabMed> {
                                             ? "Save"
                                             : "Edit",
                                         style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                buttonColor),
+                                            fontWeight: FontWeight.w600,
+                                            color: textColor),
                                       ),
                                     ),
                                   ),

@@ -64,7 +64,7 @@ class _MytDataPasienState extends State<MytDataPasien>
             "Data Pasien",
             style: TextStyle(color: Colors.black),
           ),
-          backgroundColor: Colors.white,
+          backgroundColor: Color.fromRGBO(127, 218, 244, 100),
           bottom: TabBar(
             controller: _tabController,
             isScrollable: true,

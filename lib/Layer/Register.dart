@@ -56,7 +56,7 @@ class _MyRegisterState extends State<MyRegister> {
                     height: 220,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Colors.green,
+                      color: Color.fromRGBO(127, 218, 244, 100),
                       borderRadius: BorderRadius.only(
                         bottomRight: Radius.elliptical(80, 80),
                       ),
@@ -292,7 +292,7 @@ class _MyRegisterState extends State<MyRegister> {
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          primary: Color.fromRGBO(93, 189, 17, 100),
+                          primary: Color.fromRGBO(0, 154, 205, 100),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -324,7 +324,7 @@ class _MyRegisterState extends State<MyRegister> {
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 decoration: TextDecoration.underline,
-                                color: Colors.blue,
+                                color: Color.fromRGBO(0, 154, 205, 100),
                               ),
                             ),
                           ),

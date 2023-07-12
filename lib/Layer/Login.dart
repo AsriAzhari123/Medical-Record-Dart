@@ -26,14 +26,14 @@ class _MyLoginState extends State<MyLogin> {
       body: SingleChildScrollView(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.fromLTRB(0, 0, 0, 8),
             child: Column(
               children: [
                 Container(
                   height: 220,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: Colors.green,
+                    color: Color.fromRGBO(127, 218, 244, 100),
                     borderRadius: BorderRadius.only(
                       bottomRight: Radius.elliptical(80, 80),
                     ),
@@ -185,7 +185,7 @@ class _MyLoginState extends State<MyLogin> {
                         ),
                       ),
                       style: ElevatedButton.styleFrom(
-                        primary: Color.fromRGBO(93, 189, 17, 100),
+                        primary: Color.fromRGBO(0, 154, 205, 100),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -216,7 +216,7 @@ class _MyLoginState extends State<MyLogin> {
                           child: Text(
                             "Daftar",
                             style: TextStyle(
-                              color: Colors.blue,
+                              color: Color.fromRGBO(0, 154, 205, 100),
                               fontWeight: FontWeight.bold,
                               decoration: TextDecoration.underline,
                             ),

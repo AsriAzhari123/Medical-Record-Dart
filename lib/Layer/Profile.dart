@@ -21,6 +21,7 @@ class MyProfile extends StatelessWidget {
                 },
                 icon: Icon(Icons.arrow_back_ios_new, color: Colors.black),
               ),
+              backgroundColor: Color.fromRGBO(127, 218, 244, 100),
             ),
             body: Container(
               height: MediaQuery.of(context).size.height,

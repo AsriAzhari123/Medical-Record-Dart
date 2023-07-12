@@ -54,22 +54,13 @@ class _MyFormPasienState extends State<MyFormPasien> {
             style: TextStyle(color: Colors.black),
           ),
           centerTitle: true,
-          backgroundColor: Colors.white,
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () {},
-            )
-          ],
+          backgroundColor: Color.fromRGBO(127, 218, 244, 100),
           leading: BackButton(
             color: Colors.black,
           ),
         ),
         body: SingleChildScrollView(
           child: Container(
-            color: isDarkMode
-                ? Colors.black
-                : const Color.fromARGB(255, 224, 255, 200),
             padding: EdgeInsets.all(10.0),
             child: Form(
               key: _formkey,
@@ -90,6 +81,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                         fillColor: Colors.white,
                         filled: true,
                         labelText: 'Nama Pasien',
+                        labelStyle: TextStyle(color: Colors.black),
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -116,17 +108,31 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                   child: DropdownButtonFormField(
                                     hint: Padding(
                                       padding: EdgeInsets.only(left: 10),
-                                      child: Text("Jenis Kelamin"),
+                                      child: Text(
+                                        "Jenis Kelamin",
+                                        style: TextStyle(color: Colors.black),
+                                      ),
                                     ),
                                     isExpanded: true,
                                     value: selectedValue,
+                                    icon: Icon(
+                                      Icons.arrow_drop_down,
+                                      color: Colors.black,
+                                    ),
                                     items: [
                                       DropdownMenuItem(
                                         child: Padding(
                                           padding: EdgeInsets.only(
                                             left: 10,
                                           ),
-                                          child: Text("Laki-Laki"),
+                                          child: Text(
+                                            "Laki-Laki",
+                                            style: TextStyle(
+                                              color: isDarkMode
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
+                                          ),
                                         ),
                                         value: "Laki - Laki",
                                       ),
@@ -135,7 +141,14 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                           padding: EdgeInsets.only(
                                             left: 10,
                                           ),
-                                          child: Text("Perempuan"),
+                                          child: Text(
+                                            "Perempuan",
+                                            style: TextStyle(
+                                              color: isDarkMode
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
+                                          ),
                                         ),
                                         value: "Perempuan",
                                       ),
@@ -185,11 +198,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                     borderSide: BorderSide(color: Colors.black),
                                   ),
                                   filled: true,
-                                  labelStyle: TextStyle(
-                                    color: isDarkMode
-                                        ? Colors.white
-                                        : Colors.black,
-                                  ),
+                                  labelStyle: TextStyle(color: Colors.black),
                                 ),
                                 readOnly: true,
                                 onTap: () async {
@@ -230,7 +239,10 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                       });
                                     }
                                   },
-                                  icon: const Icon(Icons.date_range),
+                                  icon: const Icon(
+                                    Icons.date_range,
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ),
                             ],
@@ -254,6 +266,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                         fillColor: Colors.white,
                         filled: true,
                         labelText: 'No Telepon',
+                        labelStyle: TextStyle(color: Colors.black),
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -273,6 +286,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                         fillColor: Colors.white,
                         filled: true,
                         labelText: 'Alamat',
+                        labelStyle: TextStyle(color: Colors.black),
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -295,6 +309,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                           borderSide: BorderSide(color: Colors.black),
                         ),
                         labelText: 'Pekerjaan',
+                        labelStyle: TextStyle(color: Colors.black),
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -378,11 +393,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                     borderSide: BorderSide(color: Colors.black),
                                   ),
                                   filled: true,
-                                  labelStyle: TextStyle(
-                                    color: isDarkMode
-                                        ? Colors.white
-                                        : Colors.black,
-                                  ),
+                                  labelStyle: TextStyle(color: Colors.black),
                                 ),
                                 readOnly: true,
                                 onTap: () async {
@@ -423,7 +434,10 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                       });
                                     }
                                   },
-                                  icon: const Icon(Icons.date_range),
+                                  icon: const Icon(
+                                    Icons.date_range,
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ),
                             ],
@@ -447,6 +461,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                         fillColor: Colors.white,
                         filled: true,
                         labelText: 'Alergi',
+                        labelStyle: TextStyle(color: Colors.black),
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -466,6 +481,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                         fillColor: Colors.white,
                         filled: true,
                         labelText: 'Anamnesa',
+                        labelStyle: TextStyle(color: Colors.black),
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -485,6 +501,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                         fillColor: Colors.white,
                         filled: true,
                         labelText: 'Diagnosa',
+                        labelStyle: TextStyle(color: Colors.black),
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -504,6 +521,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                         fillColor: Colors.white,
                         filled: true,
                         labelText: 'Therapy',
+                        labelStyle: TextStyle(color: Colors.black),
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -548,7 +566,8 @@ class _MyFormPasienState extends State<MyFormPasien> {
                           if (_formkey.currentState!.validate() == true) {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: Text('Form Anda Diterima'),
-                              backgroundColor: Colors.green,
+                              backgroundColor:
+                                  Color.fromRGBO(127, 218, 244, 100),
                             ));
                             Navigator.pushAndRemoveUntil(
                                 context,

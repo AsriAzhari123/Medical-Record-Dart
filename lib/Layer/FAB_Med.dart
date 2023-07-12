@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../Provider/DarkModeProvider.dart';
 import '../Provider/Pasien_data.dart';
+import 'package:intl/intl.dart';
 
 class addRiwayat extends StatefulWidget {
   final String NamaText;
@@ -12,14 +13,14 @@ class addRiwayat extends StatefulWidget {
 }
 
 class _addRiwayatState extends State<addRiwayat> {
-  TextEditingController tanggalController = TextEditingController();
+  DateTime? _date;
+  TextEditingController tBerkunjungController = TextEditingController();
   TextEditingController anamnesaController = TextEditingController();
   TextEditingController diagnosaController = TextEditingController();
   TextEditingController therapyController = TextEditingController();
 
   @override
   void dispose() {
-    tanggalController.dispose();
     anamnesaController.dispose();
     diagnosaController.dispose();
     therapyController.dispose();
@@ -71,13 +72,56 @@ class _addRiwayatState extends State<addRiwayat> {
                       ),
                     ),
                     TextField(
-                      controller: tanggalController,
+                      controller: tBerkunjungController,
                       style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         fillColor: Colors.white,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                        ),
                         filled: true,
-                        border: OutlineInputBorder(),
+                        labelStyle: TextStyle(color: Colors.black),
+                        suffixIcon: IconButton(
+                          onPressed: () async {
+                            var res = await showDatePicker(
+                              context: context,
+                              initialDate: _date ?? DateTime.now(),
+                              firstDate: DateTime(1950),
+                              lastDate: DateTime(2250),
+                            );
+                            if (res != null) {
+                              setState(() {
+                                _date = res;
+                                tBerkunjungController.text =
+                                    DateFormat('dd-MM-yyyy').format(_date!);
+                              });
+                            }
+                          },
+                          icon: Icon(
+                            Icons.date_range,
+                            color: Colors.black,
+                          ),
+                        ),
                       ),
+                      readOnly: true,
+                      onTap: () async {
+                        var res = await showDatePicker(
+                          context: context,
+                          initialDate: _date ?? DateTime.now(),
+                          firstDate: DateTime(1950),
+                          lastDate: DateTime(2250),
+                        );
+                        if (res != null) {
+                          setState(() {
+                            _date = res;
+                            tBerkunjungController.text =
+                                DateFormat('dd-MM-yyyy').format(_date!);
+                          });
+                        }
+                      },
                     ),
                     SizedBox(
                       height: 8,
@@ -152,7 +196,7 @@ class _addRiwayatState extends State<addRiwayat> {
                         child: ElevatedButton(
                           onPressed: () {
                             String tanggalBerkunjung =
-                                tanggalController.text.trim();
+                                tBerkunjungController.text.trim();
                             String anamnesa = anamnesaController.text.trim();
                             String diagnosa = diagnosaController.text.trim();
                             String therapy = therapyController.text.trim();

@@ -41,8 +41,7 @@ class _addRiwayatState extends State<addRiwayat> {
               title: Text(
                 "Form Riwayat Pasien Baru",
                 style: TextStyle(
-                  color:
-                      darkModeProvider.isDarkMode ? Colors.white : Colors.black,
+                  color: Colors.black,
                 ),
               ),
               leading: IconButton(
@@ -52,7 +51,7 @@ class _addRiwayatState extends State<addRiwayat> {
                 icon: Icon(Icons.arrow_back_ios_new),
                 color: Colors.black,
               ),
-              backgroundColor: Colors.white,
+              backgroundColor: Color.fromRGBO(127, 218, 244, 100),
             ),
             body: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -142,6 +141,9 @@ class _addRiwayatState extends State<addRiwayat> {
                         filled: true,
                         border: OutlineInputBorder(),
                       ),
+                    ),
+                    SizedBox(
+                      height: 8,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),

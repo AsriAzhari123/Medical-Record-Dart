@@ -18,6 +18,8 @@ class _MyLoginState extends State<MyLogin> {
   bool check = false;
   TextEditingController nsipController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool isNSIPEmpty = false;
+  bool isKataSandiEmpty = false;
 
   @override
   Widget build(BuildContext context) {
@@ -78,12 +80,18 @@ class _MyLoginState extends State<MyLogin> {
                               labelText: "NSIP",
                               prefixIcon: Icon(Icons.person),
                               counterText: "",
+                              errorText: isNSIPEmpty ? 'Harap isi NSIP' : null,
                             ),
                             maxLength: 9,
                             inputFormatters: <TextInputFormatter>[
                               FilteringTextInputFormatter.digitsOnly,
                             ],
                             keyboardType: TextInputType.number,
+                            onChanged: (value) {
+                              setState(() {
+                                isNSIPEmpty = value.isEmpty;
+                              });
+                            },
                           ),
                         ),
                       ),
@@ -111,7 +119,14 @@ class _MyLoginState extends State<MyLogin> {
                             check ? Icons.visibility : Icons.visibility_off,
                           ),
                         ),
+                        errorText:
+                            isKataSandiEmpty ? 'Harap isi Kata Sandi' : null,
                       ),
+                      onChanged: (value) {
+                        setState(() {
+                          isKataSandiEmpty = value.isEmpty;
+                        });
+                      },
                     ),
                   ),
                 ),
@@ -122,26 +137,11 @@ class _MyLoginState extends State<MyLogin> {
                     width: 193,
                     child: ElevatedButton(
                       onPressed: () {
-                        if (nsipController.text.isEmpty ||
-                            passwordController.text.isEmpty) {
-                          showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: Text('Error'),
-                              content: Text(
-                                'Silakan lengkapi semua field sebelum melanjutkan.',
-                              ),
-                              actions: <Widget>[
-                                ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Text('OK'),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
+                        setState(() {
+                          isNSIPEmpty = nsipController.text.isEmpty;
+
+                          isKataSandiEmpty = passwordController.text.isEmpty;
+                        });
                         var data = (prov.datauser['user']
                                 as List<Map<String, String>>)
                             .any((user) => nsipController.text != user['NSIP']);

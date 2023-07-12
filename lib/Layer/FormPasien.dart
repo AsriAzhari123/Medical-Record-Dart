@@ -214,7 +214,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                     setState(() {
                                       _date = res;
                                       tLahirController!.text =
-                                          DateFormat('yyyy-MM-dd')
+                                          DateFormat('dd-MM-yyyy')
                                               .format(_date!);
                                     });
                                   }
@@ -236,7 +236,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                       setState(() {
                                         _date = res;
                                         tLahirController!.text =
-                                            DateFormat('yyyy-MM-dd')
+                                            DateFormat('dd-MM-yyyy')
                                                 .format(_date!);
                                       });
                                     }
@@ -413,7 +413,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                     setState(() {
                                       _date2 = res;
                                       tBerkunjungController!.text =
-                                          DateFormat('yyyy-MM-dd')
+                                          DateFormat('dd-MM-yyyy')
                                               .format(_date2!);
                                     });
                                   }
@@ -435,7 +435,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                       setState(() {
                                         _date2 = res;
                                         tBerkunjungController!.text =
-                                            DateFormat('yyyy-MM-dd')
+                                            DateFormat('dd-MM-yyyy')
                                                 .format(_date2!);
                                       });
                                     }

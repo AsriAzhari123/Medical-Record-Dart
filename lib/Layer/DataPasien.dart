@@ -65,6 +65,20 @@ class _MytDataPasienState extends State<MytDataPasien>
             style: TextStyle(color: Colors.black),
           ),
           backgroundColor: Color.fromRGBO(127, 218, 244, 100),
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.search,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                showSearch(
+                  context: context,
+                  delegate: PasienSearchDelegate(pasien: pasien),
+                );
+              },
+            ),
+          ],
           bottom: TabBar(
             controller: _tabController,
             isScrollable: true,
@@ -171,6 +185,96 @@ class _MytDataPasienState extends State<MytDataPasien>
           ],
         ),
       ),
+    );
+  }
+}
+
+class PasienSearchDelegate extends SearchDelegate<String> {
+  final List<Map<String, dynamic>> pasien;
+
+  PasienSearchDelegate({required this.pasien});
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      ),
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.arrow_back_ios_new, color: Colors.black),
+      onPressed: () {
+        close(context, '');
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    final results = pasien
+        .where((data) =>
+            data['Nama'].toString().toLowerCase().contains(query.toLowerCase()))
+        .toList();
+    return ListView.builder(
+      itemCount: results.length,
+      itemBuilder: (BuildContext context, int index) {
+        Map<String, dynamic> pasienData = results[index];
+        String nama = pasienData['Nama'] ?? "";
+        return ListTile(
+          title: Text(
+            nama,
+            style: TextStyle(fontSize: 18),
+          ),
+          subtitle: Text('100000001'),
+          leading: Icon(Icons.person),
+          trailing: Icon(
+            Icons.arrow_forward_ios,
+          ),
+          onTap: () {
+            close(context, pasienData['Nama']);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => MyMedicalRecord(
+                  pasienData: pasienData,
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    final suggestions = pasien
+        .where((data) =>
+            data['Nama'].toString().toLowerCase().contains(query.toLowerCase()))
+        .toList();
+    return ListView.builder(
+      itemCount: suggestions.length,
+      itemBuilder: (BuildContext context, int index) {
+        Map<String, dynamic> pasienData = suggestions[index];
+        String nama = pasienData['Nama'] ?? "";
+        return ListTile(
+          title: Text(
+            nama,
+            style: TextStyle(fontSize: 18),
+          ),
+          onTap: () {
+            query = pasienData['Nama'];
+            showResults(context);
+          },
+        );
+      },
     );
   }
 }

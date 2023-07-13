@@ -179,8 +179,8 @@ class _MyRegisterState extends State<MyRegister> {
                                     });
                                   },
                                   icon: Icon(check
-                                      ? Icons.visibility
-                                      : Icons.visibility_off),
+                                      ? Icons.visibility_off
+                                      : Icons.visibility),
                                 ),
                                 errorText: isKataSandiEmpty
                                     ? 'Harap isi Kata Sandi'

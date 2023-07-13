@@ -215,9 +215,10 @@ class _addRiwayatState extends State<addRiwayat> {
                               );
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content:
-                                      Text('Riwayat baru telah ditambahkan'),
-                                  backgroundColor: Colors.green,
+                                  content: Text(
+                                      'Riwayat pasien baru telah ditambahkan'),
+                                  backgroundColor:
+                                      Color.fromRGBO(127, 218, 244, 100),
                                 ),
                               );
                               Navigator.pop(context);

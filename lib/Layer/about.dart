@@ -18,10 +18,9 @@ class MyAbout extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 224, 255, 200),
+        backgroundColor: Color.fromRGBO(127, 218, 244, 100),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          color: Colors.black,
+          icon: Icon(Icons.arrow_back_ios_new, color: Colors.black),
           onPressed: () {
             Navigator.pop(context);
           },

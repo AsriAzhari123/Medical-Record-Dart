@@ -15,7 +15,7 @@ class MyLogin extends StatefulWidget {
 }
 
 class _MyLoginState extends State<MyLogin> {
-  bool check = false;
+  bool check = true;
   TextEditingController nsipController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool isNSIPEmpty = false;

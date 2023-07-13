@@ -34,7 +34,7 @@ class _MyRegisterState extends State<MyRegister> {
     super.dispose();
   }
 
-  bool check = false;
+  bool check = true;
 
   @override
   Widget build(BuildContext context) {

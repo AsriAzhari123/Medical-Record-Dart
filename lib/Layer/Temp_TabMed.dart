@@ -42,8 +42,6 @@ class _MyTabMedState extends State<MyTabMed> {
         Color textFieldColor =
             isDarkMode ? Colors.grey[900]! : Color.fromRGBO(0, 154, 205, 100);
         // Color buttonColor = isDarkMode ? Colors.blue : Colors.green;
-        Color? snackBarColor =
-            isDarkMode ? Color.fromRGBO(127, 218, 244, 100) : Colors.grey[800]!;
 
         return Padding(
           padding: const EdgeInsets.all(8.0),
@@ -111,7 +109,8 @@ class _MyTabMedState extends State<MyTabMed> {
                                                           color: Colors.white),
                                                     ),
                                                     backgroundColor:
-                                                        snackBarColor,
+                                                        Color.fromRGBO(
+                                                            127, 218, 244, 100),
                                                   ));
                                                 }
                                                 editedAnamnesaText = "";
@@ -132,7 +131,8 @@ class _MyTabMedState extends State<MyTabMed> {
                                                           color: Colors.white),
                                                     ),
                                                     backgroundColor:
-                                                        snackBarColor,
+                                                        Color.fromRGBO(
+                                                            127, 218, 244, 100),
                                                   ));
                                                 }
                                                 editedDiagnosaText = "";
@@ -153,7 +153,8 @@ class _MyTabMedState extends State<MyTabMed> {
                                                           color: Colors.white),
                                                     ),
                                                     backgroundColor:
-                                                        snackBarColor,
+                                                        Color.fromRGBO(
+                                                            127, 218, 244, 100),
                                                   ));
                                                 }
                                                 editedTherapyText = "";

@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../Provider/DarkModeProvider.dart';
 
 class MyAbout extends StatelessWidget {
   const MyAbout({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var darkModeProvider = Provider.of<DarkModeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Tentang Aplikasi',
           style: TextStyle(
-            color: Colors.black, // Mengatur warna teks judul menjadi hitam
+            color: Colors.black, // Set the title text color to black
           ),
         ),
         centerTitle: true,
@@ -63,6 +67,8 @@ class MyAbout extends StatelessWidget {
           ),
         ],
       ),
+      backgroundColor:
+          darkModeProvider.isDarkMode ? Colors.black : Colors.white,
     );
   }
 }

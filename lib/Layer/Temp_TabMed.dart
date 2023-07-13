@@ -23,6 +23,8 @@ class _MyTabMedState extends State<MyTabMed> {
   String editedDiagnosaText = "";
   String editedTherapyText = "";
 
+  int editedRecordIndex = -1;
+
   @override
   void dispose() {
     anamnesaController.dispose();
@@ -41,7 +43,8 @@ class _MyTabMedState extends State<MyTabMed> {
         Color textColor = isDarkMode ? Colors.white : Colors.black;
         Color textFieldColor =
             isDarkMode ? Colors.grey[900]! : Color.fromRGBO(0, 154, 205, 100);
-        // Color buttonColor = isDarkMode ? Colors.blue : Colors.green;
+        Color? snackBarColor =
+            isDarkMode ? Color.fromRGBO(127, 218, 244, 100) : Colors.grey[800]!;
 
         return Padding(
           padding: const EdgeInsets.all(8.0),
@@ -89,9 +92,7 @@ class _MyTabMedState extends State<MyTabMed> {
                                       child: TextButton(
                                         onPressed: () {
                                           setState(() {
-                                            if (isEditingAnamnesa ||
-                                                isEditingDiagnosa ||
-                                                isEditingTherapy) {
+                                            if (editedRecordIndex == index) {
                                               // Save the changes
                                               if (isEditingAnamnesa) {
                                                 if (editedAnamnesaText
@@ -109,8 +110,7 @@ class _MyTabMedState extends State<MyTabMed> {
                                                           color: Colors.white),
                                                     ),
                                                     backgroundColor:
-                                                        Color.fromRGBO(
-                                                            127, 218, 244, 100),
+                                                        snackBarColor,
                                                   ));
                                                 }
                                                 editedAnamnesaText = "";
@@ -131,8 +131,7 @@ class _MyTabMedState extends State<MyTabMed> {
                                                           color: Colors.white),
                                                     ),
                                                     backgroundColor:
-                                                        Color.fromRGBO(
-                                                            127, 218, 244, 100),
+                                                        snackBarColor,
                                                   ));
                                                 }
                                                 editedDiagnosaText = "";
@@ -153,26 +152,38 @@ class _MyTabMedState extends State<MyTabMed> {
                                                           color: Colors.white),
                                                     ),
                                                     backgroundColor:
-                                                        Color.fromRGBO(
-                                                            127, 218, 244, 100),
+                                                        snackBarColor,
                                                   ));
                                                 }
                                                 editedTherapyText = "";
                                               }
+
+                                              editedRecordIndex =
+                                                  -1; // Menghentikan mode edit
+                                            } else {
+                                              // Start editing this row
+                                              editedRecordIndex = index;
+                                              editedAnamnesaText =
+                                                  currentRecord['Anamnesa'] ??
+                                                      '';
+                                              editedDiagnosaText =
+                                                  currentRecord['Diagnosa'] ??
+                                                      '';
+                                              editedTherapyText =
+                                                  currentRecord['Therapy'] ??
+                                                      '';
                                             }
 
                                             isEditingAnamnesa =
-                                                !isEditingAnamnesa;
+                                                editedRecordIndex == index;
                                             isEditingDiagnosa =
-                                                !isEditingDiagnosa;
+                                                editedRecordIndex == index;
                                             isEditingTherapy =
-                                                !isEditingTherapy;
+                                                editedRecordIndex == index;
                                           });
                                         },
                                         child: Text(
-                                          isEditingAnamnesa ||
-                                                  isEditingDiagnosa ||
-                                                  isEditingTherapy
+                                          editedRecordIndex == index
                                               ? "Save"
                                               : "Edit",
                                           style: TextStyle(
@@ -214,7 +225,9 @@ class _MyTabMedState extends State<MyTabMed> {
                                             Row(
                                               children: [
                                                 Expanded(
-                                                  child: isEditingAnamnesa
+                                                  child: isEditingAnamnesa &&
+                                                          editedRecordIndex ==
+                                                              index
                                                       ? TextField(
                                                           controller:
                                                               anamnesaController,
@@ -236,7 +249,9 @@ class _MyTabMedState extends State<MyTabMed> {
                                                               color: textColor),
                                                         )
                                                       : Text(
-                                                          isEditingAnamnesa
+                                                          isEditingAnamnesa &&
+                                                                  editedRecordIndex ==
+                                                                      index
                                                               ? editedAnamnesaText
                                                                       .isNotEmpty
                                                                   ? editedAnamnesaText
@@ -290,7 +305,9 @@ class _MyTabMedState extends State<MyTabMed> {
                                               Row(
                                                 children: [
                                                   Expanded(
-                                                    child: isEditingDiagnosa
+                                                    child: isEditingDiagnosa &&
+                                                            editedRecordIndex ==
+                                                                index
                                                         ? TextField(
                                                             controller:
                                                                 diagnosaController,
@@ -313,7 +330,9 @@ class _MyTabMedState extends State<MyTabMed> {
                                                                     textColor),
                                                           )
                                                         : Text(
-                                                            isEditingDiagnosa
+                                                            isEditingDiagnosa &&
+                                                                    editedRecordIndex ==
+                                                                        index
                                                                 ? editedDiagnosaText
                                                                         .isNotEmpty
                                                                     ? editedDiagnosaText
@@ -369,7 +388,9 @@ class _MyTabMedState extends State<MyTabMed> {
                                               Row(
                                                 children: [
                                                   Expanded(
-                                                    child: isEditingTherapy
+                                                    child: isEditingTherapy &&
+                                                            editedRecordIndex ==
+                                                                index
                                                         ? TextField(
                                                             controller:
                                                                 therapyController,
@@ -392,7 +413,9 @@ class _MyTabMedState extends State<MyTabMed> {
                                                                     textColor),
                                                           )
                                                         : Text(
-                                                            isEditingTherapy
+                                                            isEditingTherapy &&
+                                                                    editedRecordIndex ==
+                                                                        index
                                                                 ? editedTherapyText
                                                                         .isNotEmpty
                                                                     ? editedTherapyText

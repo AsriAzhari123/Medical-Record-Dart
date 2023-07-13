@@ -21,6 +21,7 @@ class _addRiwayatState extends State<addRiwayat> {
 
   @override
   void dispose() {
+    tBerkunjungController.dispose();
     anamnesaController.dispose();
     diagnosaController.dispose();
     therapyController.dispose();
@@ -212,13 +213,13 @@ class _addRiwayatState extends State<addRiwayat> {
                                 therapy,
                                 widget.NamaText,
                               );
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                content: Text(
-                                    'Riwayat pasien baru telah ditambahkan!'),
-                                backgroundColor:
-                                    Color.fromRGBO(127, 218, 244, 100),
-                              ));
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content:
+                                      Text('Riwayat baru telah ditambahkan'),
+                                  backgroundColor: Colors.green,
+                                ),
+                              );
                               Navigator.pop(context);
                             } else {
                               showDialog(

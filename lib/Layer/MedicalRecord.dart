@@ -50,7 +50,8 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
       bool isDarkMode = darkModeProvider.isDarkMode;
       Color containerColor = isDarkMode ? Colors.black : Colors.white;
       Color textColor = isDarkMode ? Colors.white : Colors.black;
-
+      Color? snackBarColor =
+          isDarkMode ? Color.fromRGBO(127, 218, 244, 100) : Colors.grey[800]!;
       return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -239,8 +240,7 @@ class _MyMedicalRecordState extends State<MyMedicalRecord> {
                                                   style: TextStyle(
                                                       color: Colors.white),
                                                 ),
-                                                backgroundColor: Color.fromRGBO(
-                                                    127, 218, 244, 100),
+                                                backgroundColor: snackBarColor,
                                               ),
                                             );
                                           }

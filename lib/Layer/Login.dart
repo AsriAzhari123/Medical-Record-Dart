@@ -205,6 +205,10 @@ class _MyLoginState extends State<MyLogin> {
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         TextButton(
+                          style: TextButton.styleFrom(
+                            primary: Colors.white,
+                            backgroundColor: Colors.white, // Background Color
+                          ),
                           onPressed: () {
                             Navigator.pushReplacement(
                               context,

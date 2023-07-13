@@ -312,6 +312,10 @@ class _MyRegisterState extends State<MyRegister> {
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           TextButton(
+                            style: TextButton.styleFrom(
+                              primary: Colors.white,
+                              backgroundColor: Colors.black, // Background Color
+                            ),
                             onPressed: () {
                               Navigator.pushAndRemoveUntil(
                                   context,

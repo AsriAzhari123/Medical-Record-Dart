@@ -212,6 +212,13 @@ class _addRiwayatState extends State<addRiwayat> {
                                 therapy,
                                 widget.NamaText,
                               );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text(
+                                    'Riwayat pasien baru telah ditambahkan!'),
+                                backgroundColor:
+                                    Color.fromRGBO(127, 218, 244, 100),
+                              ));
                               Navigator.pop(context);
                             } else {
                               showDialog(

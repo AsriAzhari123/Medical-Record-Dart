@@ -116,7 +116,7 @@ class _MyLoginState extends State<MyLogin> {
                             });
                           },
                           icon: Icon(
-                            check ? Icons.visibility : Icons.visibility_off,
+                            check ? Icons.visibility_off : Icons.visibility,
                           ),
                         ),
                         errorText:

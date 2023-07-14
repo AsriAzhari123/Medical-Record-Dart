@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:slide_digital_clock/slide_digital_clock.dart';
 import '../Provider/DarkModeProvider.dart';
 import '../Provider/user_data.dart';
 import '../core/utils/color_constant.dart';
@@ -36,6 +37,16 @@ class MyHome extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Transform.scale(
+                      scale: 1.5, // Faktor skala yang diinginkan
+                      child: Align(
+                        alignment: Alignment.centerLeft, // Posisi ke kiri
+                        child: DigitalClock(
+                          is24HourTimeFormat: false,
+                          showSecondsDigit: false,
+                        ),
+                      ),
+                    ),
                     Text(
                       "Hi,",
                       style: TextStyle(

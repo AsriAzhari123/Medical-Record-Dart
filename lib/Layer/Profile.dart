@@ -222,17 +222,6 @@ class MyProfile extends StatelessWidget {
                                                   255, 165, 165, 165),
                                         ),
                                         ListTile(
-                                          trailing: Icon(
-                                              Icons.arrow_forward_ios_rounded),
-                                          onTap: () {
-                                            Navigator.pushAndRemoveUntil(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      MyLogin()),
-                                              (route) => false,
-                                            );
-                                          },
                                           dense: true,
                                           contentPadding: EdgeInsets.only(
                                               left: 0, right: 0),
@@ -251,6 +240,41 @@ class MyProfile extends StatelessWidget {
                                                   : Colors.black,
                                             ),
                                           ),
+                                          onTap: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title: Text("Konfirmasi"),
+                                                  content: Text(
+                                                      "Apakah Anda yakin ingin keluar?"),
+                                                  actions: <Widget>[
+                                                    TextButton(
+                                                      child: Text("Ya"),
+                                                      onPressed: () {
+                                                        Navigator
+                                                            .pushAndRemoveUntil(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder:
+                                                                  (context) =>
+                                                                      MyLogin()),
+                                                          (route) => false,
+                                                        );
+                                                      },
+                                                    ),
+                                                    TextButton(
+                                                      child: Text("Tidak"),
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          },
                                         ),
                                         Divider(
                                           thickness: 2,

@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  animations: ^2.0.7
   cached_network_image: ^3.2.3
   carousel_slider: ^4.2.1
   cupertino_icons: ^1.0.2
@@ -54,11 +55,15 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+
     - images/profile.png
     - images/bannerprofile.png
     - images/BannerAbout.png
     - images/dokter.jpg
     - images/obatpil.jpg
+    - images/splash1.jpg
+    - images/splash2.jpg
+    - images/splash3.jpg
     - images/BannefHome.png
     - assets/
     - assets/images/

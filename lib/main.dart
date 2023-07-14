@@ -7,6 +7,7 @@ import 'package:rekapmedis/Layer/FormPasien.dart';
 import 'package:rekapmedis/Layer/Login.dart';
 import 'package:rekapmedis/Layer/MedicalRecord.dart';
 import 'package:rekapmedis/Layer/Register.dart';
+import 'package:rekapmedis/Layer/splashscreen.dart';
 import 'package:rekapmedis/Provider/user_provider.dart';
 
 import 'Layer/Profile.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
             theme: darkModeProvider.isDarkMode
                 ? ThemeData.dark()
                 : ThemeData.light(),
-            home: MyLogin(),
+            home: SplashScreen(), // Ubah MyLogin() menjadi SplashScreen()
           );
         },
       ),

@@ -204,12 +204,8 @@ class _MyLoginState extends State<MyLogin> {
                           "Belum Punya Akun ?",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            primary: Color.fromRGBO(0, 154, 205, 100),
-                            backgroundColor: Colors.white, // Background Color
-                          ),
-                          onPressed: () {
+                        GestureDetector(
+                          onTap: () {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
@@ -225,7 +221,7 @@ class _MyLoginState extends State<MyLogin> {
                               decoration: TextDecoration.underline,
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),

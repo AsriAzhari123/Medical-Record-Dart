@@ -301,7 +301,7 @@ class _MyRegisterState extends State<MyRegister> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 15.0),
+                    padding: EdgeInsets.all(8.0),
                     child: SizedBox(
                       height: 16,
                       child: Row(
@@ -311,12 +311,8 @@ class _MyRegisterState extends State<MyRegister> {
                             "Sudah Punya Akun ?",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          TextButton(
-                            style: TextButton.styleFrom(
-                              primary: Color.fromRGBO(0, 154, 205, 100),
-                              backgroundColor: Colors.white, // Background Color
-                            ),
-                            onPressed: () {
+                          GestureDetector(
+                            onTap: () {
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
@@ -326,9 +322,9 @@ class _MyRegisterState extends State<MyRegister> {
                             child: Text(
                               "Masuk",
                               style: TextStyle(
+                                color: Color.fromRGBO(0, 154, 205, 100),
                                 fontWeight: FontWeight.bold,
                                 decoration: TextDecoration.underline,
-                                color: Color.fromRGBO(0, 154, 205, 100),
                               ),
                             ),
                           ),

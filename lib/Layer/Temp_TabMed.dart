@@ -43,6 +43,8 @@ class _MyTabMedState extends State<MyTabMed> {
         Color textColor = isDarkMode ? Colors.white : Colors.black;
         Color textFieldColor =
             isDarkMode ? Colors.grey[900]! : Color.fromRGBO(0, 154, 205, 100);
+        Color? snackBarColor =
+            isDarkMode ? Color.fromRGBO(127, 218, 244, 100) : Colors.grey[800]!;
 
         return Padding(
           padding: const EdgeInsets.all(8.0),
@@ -102,18 +104,14 @@ class _MyTabMedState extends State<MyTabMed> {
                                                       editedAnamnesaText;
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(SnackBar(
-                                                          content: Text(
-                                                            'Anamnesa pasien telah diubah!',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white),
-                                                          ),
-                                                          backgroundColor:
-                                                              Color.fromRGBO(
-                                                                  127,
-                                                                  218,
-                                                                  244,
-                                                                  100)));
+                                                    content: Text(
+                                                      'Anamnesa pasien telah diubah!',
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                    backgroundColor:
+                                                        snackBarColor,
+                                                  ));
                                                 }
                                                 editedAnamnesaText = "";
                                               }
@@ -127,18 +125,14 @@ class _MyTabMedState extends State<MyTabMed> {
                                                       editedDiagnosaText;
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(SnackBar(
-                                                          content: Text(
-                                                            'Diagnosa pasien telah diubah!',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white),
-                                                          ),
-                                                          backgroundColor:
-                                                              Color.fromRGBO(
-                                                                  127,
-                                                                  218,
-                                                                  244,
-                                                                  100)));
+                                                    content: Text(
+                                                      'Diagnosa pasien telah diubah!',
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                    backgroundColor:
+                                                        snackBarColor,
+                                                  ));
                                                 }
                                                 editedDiagnosaText = "";
                                               }
@@ -152,18 +146,14 @@ class _MyTabMedState extends State<MyTabMed> {
                                                       editedTherapyText;
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(SnackBar(
-                                                          content: Text(
-                                                            'Therapy Pasien telah diubah!',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white),
-                                                          ),
-                                                          backgroundColor:
-                                                              Color.fromRGBO(
-                                                                  127,
-                                                                  218,
-                                                                  244,
-                                                                  100)));
+                                                    content: Text(
+                                                      'Therapy Pasien telah diubah!',
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                    backgroundColor:
+                                                        snackBarColor,
+                                                  ));
                                                 }
                                                 editedTherapyText = "";
                                               }

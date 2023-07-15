@@ -259,9 +259,13 @@ class _MyFormPasienState extends State<MyFormPasien> {
                       controller: noTeleponController,
                       keyboardType:
                           TextInputType.phone, // Set keyboard type to numeric
+                      maxLength: 12, // Set maximum length to 12
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Mohon isi Nomor Telepon';
+                        }
+                        if (value.length < 10 || value.length > 12) {
+                          return 'Nomor Telepon harus terdiri dari 10 hingga 12 digit';
                         }
                         return null;
                       },

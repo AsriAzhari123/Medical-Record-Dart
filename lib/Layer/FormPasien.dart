@@ -257,6 +257,8 @@ class _MyFormPasienState extends State<MyFormPasien> {
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                     child: TextFormField(
                       controller: noTeleponController,
+                      keyboardType:
+                          TextInputType.phone, // Set keyboard type to numeric
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Mohon isi Nomor Telepon';

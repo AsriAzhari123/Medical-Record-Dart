@@ -68,7 +68,7 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text("MEDICAL RECORD"),
+          title: Text("REKAP MEDIS"),
           titleTextStyle: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,

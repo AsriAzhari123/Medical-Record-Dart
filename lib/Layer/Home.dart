@@ -37,15 +37,19 @@ class MyHome extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Transform.scale(
-                      scale: 1.5, // Faktor skala yang diinginkan
-                      child: Align(
-                        alignment: Alignment.centerLeft, // Posisi ke kiri
-                        child: DigitalClock(
-                          is24HourTimeFormat: false,
-                          showSecondsDigit: false,
+                    Row(
+                      children: [
+                        Transform.scale(
+                          scale: 1.5, // Faktor skala yang diinginkan
+                          child: Align(
+                            alignment: Alignment.centerLeft, // Posisi ke kiri
+                            child: DigitalClock(
+                              is24HourTimeFormat: false,
+                              showSecondsDigit: false,
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                     Text(
                       "Hi,",

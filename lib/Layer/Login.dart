@@ -1,5 +1,3 @@
-// ignore_for_file: unused_local_variable
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -219,52 +217,74 @@ class _MyLoginState extends State<MyLogin> {
   }
 
   void performLogin() {
-    var prov = Provider.of<DataUser>(context, listen: false);
+    setState(() {
+      isNSIPEmpty = nsipController.text.isEmpty;
+      isKataSandiEmpty = passwordController.text.isEmpty;
+    });
 
-    if (nsipController.text.isEmpty) {
-      setState(() {
-        isNSIPEmpty = true;
-      });
+    if (isNSIPEmpty || isKataSandiEmpty) {
+      // Do not continue with login if the form is not filled
       return;
-    } else {
-      setState(() {
-        isNSIPEmpty = false;
-      });
     }
 
-    if (passwordController.text.isEmpty) {
-      setState(() {
-        isKataSandiEmpty = true;
-      });
-      return;
-    } else {
-      setState(() {
-        isKataSandiEmpty = false;
-      });
-    }
-
-    // Show the loading indicator before the login process starts
+    // Set loading to true before initiating the login process
     setState(() {
       isLoading = true;
     });
 
+    var prov = Provider.of<DataUser>(context, listen: false);
+
     // Simulate a delay to show the loading indicator
     Future.delayed(Duration(seconds: 2), () {
-      var userData = prov.datauser['user'] as List<Map<String, String>>;
-      var nsipExists =
-          userData.any((user) => nsipController.text == user['NSIP']);
+      // Check if the provided NSIP and password are valid
+      var isNSIPValid = (prov.datauser['user'] as List<Map<String, String>>)
+          .any((user) => nsipController.text == user['NSIP']);
 
-      if (!nsipExists) {
-        // Hide the loading indicator
-        setState(() {
-          isLoading = false;
-        });
+      var isKataSandiValid =
+          (prov.datauser['user'] as List<Map<String, String>>)
+              .any((user) => passwordController.text == user['KataSandi']);
 
+      if (!isNSIPValid && !isKataSandiValid) {
+        // If both NSIP and password are not valid, show an alert for invalid account
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text('Akun Tidak Valid'),
-            content: Text('Akun yang anda masukkan tidak terdaftar'),
+            title: Text('Akun Tidak Terdaftar'),
+            content: Text('Akun yang Anda masukkan tidak terdaftar.'),
+            actions: <Widget>[
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          ),
+        );
+      } else if (!isNSIPValid) {
+        // If NSIP is not valid, show an alert for invalid NSIP
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('NSIP Tidak Valid'),
+            content: Text('NSIP yang Anda masukkan tidak valid.'),
+            actions: <Widget>[
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          ),
+        );
+      } else if (!isKataSandiValid) {
+        // If password is not valid, show an alert for invalid password
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Kata Sandi Tidak Valid'),
+            content: Text('Kata Sandi yang Anda masukkan salah.'),
             actions: <Widget>[
               ElevatedButton(
                 onPressed: () {
@@ -276,43 +296,21 @@ class _MyLoginState extends State<MyLogin> {
           ),
         );
       } else {
-        var passwordMatches = userData
-            .firstWhere((user) => nsipController.text == user['NSIP'])
-            .containsValue(passwordController.text);
-
-        // Hide the loading indicator
-        setState(() {
-          isLoading = false;
-        });
-
-        if (!passwordMatches) {
-          // Password is incorrect
-          showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              title: Text('Password Salah'),
-              content: Text('Password yang anda masukkan salah'),
-              actions: <Widget>[
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('OK'),
-                ),
-              ],
-            ),
+        // Proceed with login if both NSIP and password are valid
+        if (prov.login(nsipController.text, passwordController.text)) {
+          // Navigate to the home page after successful login
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => MyHome()),
+            (route) => false,
           );
-        } else {
-          if (prov.login(nsipController.text, passwordController.text)) {
-            // Navigate to the home page after successful login
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => MyHome()),
-              (route) => false,
-            );
-          }
         }
       }
+
+      // Set loading to false after completing the login process
+      setState(() {
+        isLoading = false;
+      });
     });
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -33,8 +35,7 @@ class _MyLoginState extends State<MyLogin> {
               child: Padding(
                 padding: EdgeInsets.fromLTRB(0, 0, 0, 8),
                 child: Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.center, // Tambahkan crossAxisAlignment
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
                       height: 220,
@@ -143,58 +144,7 @@ class _MyLoginState extends State<MyLogin> {
                         height: 47,
                         width: 193,
                         child: ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              // Set loading to true before initiating the login process
-                              isLoading = true;
-                              isNSIPEmpty = nsipController.text.isEmpty;
-                              isKataSandiEmpty =
-                                  passwordController.text.isEmpty;
-                            });
-
-                            // Simulate a delay to show the loading indicator
-                            Future.delayed(Duration(seconds: 2), () {
-                              var data = (prov.datauser['user']
-                                      as List<Map<String, String>>)
-                                  .any((user) =>
-                                      nsipController.text != user['NSIP']);
-                              if (nsipController.text.isNotEmpty &&
-                                  passwordController.text.isNotEmpty &&
-                                  data) {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                    title: Text('Akun Tidak Valid'),
-                                    content: Text(
-                                        'Akun yang anda masukkan tidak terdaftar'),
-                                    actions: <Widget>[
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: Text('OK'),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              }
-                              if (prov.login(nsipController.text,
-                                  passwordController.text)) {
-                                // Navigate to the home page after successful login
-                                Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => MyHome()),
-                                  (route) => false,
-                                );
-                              }
-
-                              // Set loading to false after the login process is complete
-                              setState(() {
-                                isLoading = false;
-                              });
-                            });
-                          },
+                          onPressed: performLogin,
                           child: Text(
                             "Masuk",
                             style: TextStyle(
@@ -251,7 +201,7 @@ class _MyLoginState extends State<MyLogin> {
             ),
           ),
           Positioned.fill(
-            top: 200, // Sesuaikan dengan posisi yang diinginkan
+            top: 200,
             child: Align(
               alignment: Alignment.center,
               child: Visibility(
@@ -266,5 +216,79 @@ class _MyLoginState extends State<MyLogin> {
         ],
       ),
     );
+  }
+
+  void performLogin() {
+    var prov = Provider.of<DataUser>(context, listen: false);
+
+    if (nsipController.text.isEmpty) {
+      setState(() {
+        isNSIPEmpty = true;
+      });
+      return;
+    } else {
+      setState(() {
+        isNSIPEmpty = false;
+      });
+    }
+
+    if (passwordController.text.isEmpty) {
+      setState(() {
+        isKataSandiEmpty = true;
+      });
+      return;
+    } else {
+      setState(() {
+        isKataSandiEmpty = false;
+      });
+    }
+
+    // Show the loading indicator before the login process starts
+    setState(() {
+      isLoading = true;
+    });
+
+    // Simulate a delay to show the loading indicator
+    Future.delayed(Duration(seconds: 2), () {
+      var data = (prov.datauser['user'] as List<Map<String, String>>)
+          .any((user) => nsipController.text == user['NSIP']);
+
+      if (!data) {
+        // Hide the loading indicator
+        setState(() {
+          isLoading = false;
+        });
+
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Akun Tidak Valid'),
+            content: Text('Akun yang anda masukkan tidak terdaftar'),
+            actions: <Widget>[
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          ),
+        );
+      } else {
+        // Hide the loading indicator
+        setState(() {
+          isLoading = false;
+        });
+
+        if (prov.login(nsipController.text, passwordController.text)) {
+          // Navigate to the home page after successful login
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => MyHome()),
+            (route) => false,
+          );
+        }
+      }
+    });
   }
 }

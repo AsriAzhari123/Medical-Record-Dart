@@ -11,11 +11,11 @@ class DataUser extends ChangeNotifier {
         "NoTelepon": "082162619000"
       },
       {
-        "NSIP": "134567891",
-        "Nama": "Rangga Lubis",
-        "Email": "Rangga@gmail.com",
-        "KataSandi": "rangga123",
-        "NoTelepon": "082162619002"
+        "NSIP": "000000000",
+        "Nama": "User1",
+        "Email": "User1@gmail.com",
+        "KataSandi": "user1",
+        "NoTelepon": "082100000000"
       },
     ]
   };

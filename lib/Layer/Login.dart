@@ -250,10 +250,11 @@ class _MyLoginState extends State<MyLogin> {
 
     // Simulate a delay to show the loading indicator
     Future.delayed(Duration(seconds: 2), () {
-      var data = (prov.datauser['user'] as List<Map<String, String>>)
-          .any((user) => nsipController.text == user['NSIP']);
+      var userData = prov.datauser['user'] as List<Map<String, String>>;
+      var nsipExists =
+          userData.any((user) => nsipController.text == user['NSIP']);
 
-      if (!data) {
+      if (!nsipExists) {
         // Hide the loading indicator
         setState(() {
           isLoading = false;
@@ -275,18 +276,41 @@ class _MyLoginState extends State<MyLogin> {
           ),
         );
       } else {
+        var passwordMatches = userData
+            .firstWhere((user) => nsipController.text == user['NSIP'])
+            .containsValue(passwordController.text);
+
         // Hide the loading indicator
         setState(() {
           isLoading = false;
         });
 
-        if (prov.login(nsipController.text, passwordController.text)) {
-          // Navigate to the home page after successful login
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => MyHome()),
-            (route) => false,
+        if (!passwordMatches) {
+          // Password is incorrect
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text('Password Salah'),
+              content: Text('Password yang anda masukkan salah'),
+              actions: <Widget>[
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            ),
           );
+        } else {
+          if (prov.login(nsipController.text, passwordController.text)) {
+            // Navigate to the home page after successful login
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => MyHome()),
+              (route) => false,
+            );
+          }
         }
       }
     });

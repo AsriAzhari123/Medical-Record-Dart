@@ -21,7 +21,6 @@ class _MyFormPasienState extends State<MyFormPasien> {
   String? dropdownError;
 
   final _formkey = GlobalKey<FormState>();
-  String _selectedRadio = "";
   TextEditingController namaController = TextEditingController();
   TextEditingController? tLahirController;
   TextEditingController noTeleponController = TextEditingController();
@@ -38,6 +37,18 @@ class _MyFormPasienState extends State<MyFormPasien> {
     super.initState();
     tLahirController = TextEditingController();
     tBerkunjungController = TextEditingController();
+  }
+
+  String?
+      _selectedImunisasi; // Variable untuk menyimpan nilai Imunisasi yang dipilih
+  String? _imunisasiError; // Variabel untuk menyimpan pesan error Imunisasi
+
+  // Validator for the "Imunisasi" field
+  String? validateImunisasi(String? value) {
+    if (_selectedImunisasi == null) {
+      return 'Mohon pilih Imunisasi';
+    }
+    return null;
   }
 
   @override
@@ -272,6 +283,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                       maxLines: null,
                       style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
+                        counterText: "",
                         fillColor: Colors.white,
                         filled: true,
                         labelText: 'No Telepon',
@@ -344,10 +356,10 @@ class _MyFormPasienState extends State<MyFormPasien> {
                           children: [
                             Radio(
                               value: "Sudah",
-                              groupValue: _selectedRadio,
+                              groupValue: _selectedImunisasi,
                               onChanged: (value) {
                                 setState(() {
-                                  _selectedRadio = value!;
+                                  _selectedImunisasi = value;
                                 });
                               },
                               activeColor:
@@ -361,10 +373,10 @@ class _MyFormPasienState extends State<MyFormPasien> {
                             ),
                             Radio(
                               value: "Belum",
-                              groupValue: _selectedRadio,
+                              groupValue: _selectedImunisasi,
                               onChanged: (value) {
                                 setState(() {
-                                  _selectedRadio = value!;
+                                  _selectedImunisasi = value;
                                 });
                               },
                               activeColor:
@@ -378,6 +390,17 @@ class _MyFormPasienState extends State<MyFormPasien> {
                             ),
                           ],
                         ),
+                        if (_imunisasiError !=
+                            null) // Tampilkan pesan error jika ada
+                          Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: Text(
+                              _imunisasiError!,
+                              style: TextStyle(
+                                color: Colors.red,
+                              ),
+                            ),
+                          ),
                       ],
                     ),
                   ),
@@ -552,7 +575,9 @@ class _MyFormPasienState extends State<MyFormPasien> {
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          if (_formkey.currentState!.validate()) {
+                          // Validate form fields including the "Imunisasi" field
+                          if (_formkey.currentState!.validate() &&
+                              _selectedImunisasi != null) {
                             String namaPasien = namaController.text.trim();
                             String tLahirPasien = tLahirController!.text.trim();
                             String noTeleponPasien =
@@ -576,7 +601,7 @@ class _MyFormPasienState extends State<MyFormPasien> {
                               noTeleponPasien,
                               alamatPasien,
                               pekerjaanPasien,
-                              _selectedRadio,
+                              _selectedImunisasi!,
                               alergiPasien,
                               tBerkunjungPasien,
                               anamnesaPasien,
@@ -594,11 +619,10 @@ class _MyFormPasienState extends State<MyFormPasien> {
                                     builder: (context) => MyHome()),
                                 (route) => false);
                           } else {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content:
-                                  Text('Harap isi semua field yang diperlukan'),
-                              backgroundColor: Colors.red,
-                            ));
+                            // If form is not valid, set the error message for "Imunisasi" field
+                            setState(() {
+                              _imunisasiError = 'Mohon pilih Imunisasi';
+                            });
                           }
                         },
                         style: ElevatedButton.styleFrom(

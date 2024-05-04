@@ -274,38 +274,4 @@ class DataPasien extends ChangeNotifier {
       ]
     });
   }
-
-//   void pasienacctive(
-//       String Nama,
-//       String JenisKelamin,
-//       String TanggalLahir,
-//       String NomorTelepon,
-//       String Alamat,
-//       String Pekerjaan,
-//       String Imunisasi,
-//       String TanggalBerkunjung,
-//       String Alergi,
-//       String Anamnesa,
-//       String Diagnosa,
-//       String Therapy) {
-//     _ActivePasien = {
-//       "pasien": [
-//         {
-//           "Nama": Nama,
-//           "JenisKelamin": JenisKelamin,
-//           "TanggalLahir": TanggalLahir,
-//           "NomorTelepon": NomorTelepon,
-//           "Alamat": Alamat,
-//           "Pekerjaan": Pekerjaan,
-//           "Imunisasi": Imunisasi,
-//           "TanggalBerkunjung": TanggalBerkunjung,
-//           "Alergi": Alergi,
-//           "Anamnesa": Anamnesa,
-//           "Diagnosa": Diagnosa,
-//           "Therapy": Therapy
-//         }
-//       ],
-//     };
-//     notifyListeners();
-//   }
 }
